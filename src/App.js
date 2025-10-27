@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import MyComponent from './component/MyComponent';
 import React from 'react';
+import Infor from './component/Info';
 
 // class App extends React.Component {
 //   state = {
@@ -20,45 +21,24 @@ import React from 'react';
 //   }
 // }
 
-function Infor(props) {
-  return (
-    <div>
-      My name is {props.name} and I'm from {props.address}, I have {props.age} year old
-    </div>
-  );
-}
-
 function App() {
+  const userName = 'Ngoc Toan';
+  function handleClick(event) {
+    console.log(event);
+    console.log("My name is", userName)
+  }
+  function handleonMouseMove(event) {
+    console.log(event.target);
+  }
   return (
     <div>
       Hello world with React.js (Hoi Dan IT)
       <MyComponent></MyComponent>
-      <Infor name='Toan' address='Ca Mau' age='18' />
+      <Infor name={userName} address='Ca Mau' age='18' />
+      <button onMouseOver={handleonMouseMove}>Hover me</button>
+      <button onClick={handleClick}>Click me</button>
     </div>
   );
 }
 
-
-// function App() {
-//   const count = useSelector(state => state.counter.count);
-//   const dispatch = useDispatch();
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Hello world with React.js (Hoi Dan IT)
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 export default App;
