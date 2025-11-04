@@ -4,10 +4,12 @@ function ChatMessages({ chatMessages, setChatMessages }) {
     return (
         <>
             {
-                chatMessages.map((chatMessage) => {
+                chatMessages.map((chatMessage, index) => {
+                    console.log(chatMessage)
                     return (
                         <ChatMessage
                             message={chatMessage.message}
+                            key={index}
                         />
                     );
                 })

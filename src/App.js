@@ -1,11 +1,12 @@
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import MyComponent from './component/MyComponent';
 import React from 'react';
 import Infor from './component/Info';
 import ChatInput from './component/ChatInput';
 import ChatMessages from './component/ChatMessages';
 import ChatMessage from './component/ChatMessage';
+
 // class App extends React.Component {
 //   state = {
 //     name: 'chim',
