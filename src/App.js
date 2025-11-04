@@ -3,7 +3,9 @@ import './App.css';
 import MyComponent from './component/MyComponent';
 import React from 'react';
 import Infor from './component/Info';
-
+import ChatInput from './component/ChatInput';
+import ChatMessages from './component/ChatMessages';
+import ChatMessage from './component/ChatMessage';
 // class App extends React.Component {
 //   state = {
 //     name: 'chim',
@@ -22,6 +24,7 @@ import Infor from './component/Info';
 // }
 
 function App() {
+  const [chatMessages, setChatMessages] = React.useState([]);
   const userName = 'Ngoc Toan';
   function handleClick(event) {
     console.log(event);
@@ -30,6 +33,7 @@ function App() {
   function handleonMouseMove(event) {
     console.log(event.target);
   }
+
   return (
     <div>
       Hello world with React.js (Hoi Dan IT)
@@ -37,6 +41,16 @@ function App() {
       <Infor name={userName} address='Ca Mau' age='18' />
       <button onMouseOver={handleonMouseMove}>Hover me</button>
       <button onClick={handleClick}>Click me</button>
+
+      <ChatInput
+        chatMessages={chatMessages}
+        setChatMessages={setChatMessages}
+      />
+
+      <ChatMessages
+        chatMessages={chatMessages}
+        seChatMessages={setChatMessages}
+      />
     </div>
   );
 }
