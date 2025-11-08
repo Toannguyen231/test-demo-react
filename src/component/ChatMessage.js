@@ -1,10 +1,11 @@
 import React from "react";
 import './DisplayInfo.scss';
 
-function ChatMessage({ message }) {
+
+function ChatMessage({ message, id }) {
     return (
         <>
-            <div>
+            <div className="container">
                 <p className={message == "toan" ? "blue" : "red"} >{message}</p>
             </div>
         </>

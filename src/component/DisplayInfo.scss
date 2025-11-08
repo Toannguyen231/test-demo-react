@@ -1,7 +1,14 @@
-.red {
-    color: red;
+.container {
+    .red {
+        color: red;
+    }
+
+    .blue {
+        color: blue;
+    }
 }
 
-.blue {
-    color: blue;
+.Logo {
+    width: 400px;
+    height: 400px;
 }
