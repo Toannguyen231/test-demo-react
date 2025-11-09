@@ -37,3 +37,19 @@
     transform: rotate(360deg);
   }
 }
+
+.app-container {
+  .header-container {
+    .navbar-nav{
+      .nav-link {
+        &.active{
+        color: red;
+      }
+      }
+    }
+    // .navbar-nav .nav-link {
+    // // .navbar-nav .nav-link.active {
+    // //   color: red
+    // // }
+  }
+}
