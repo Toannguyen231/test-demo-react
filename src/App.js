@@ -1,6 +1,6 @@
 import './App.scss';
 import Nav from "./component/Header/Nav"
-import { Link } from 'react-router-dom';
+import { Outlet} from 'react-router-dom';
 
 // class App extends React.Component {
 //   state = {
@@ -77,11 +77,18 @@ function App() {
   // );
   return (
     <div className="app-container">
-      <Nav />
-      <div>
-        test Link
-        <button><Link to="/User">Go to user page</Link></button>
-        <button><Link to="/Admin">Go to admin page</Link></button>
+      <div className="header-container">
+        <Nav />
+      </div>
+
+      <div className="main-container">
+        <div className="sidenav-container">
+
+        </div>
+
+        <div className="content-container">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
