@@ -17,6 +17,9 @@ function Header() {
                         <NavLink to="/admin" className='nav-link'>Admin</NavLink>
                     </Nav>
                     <Nav>
+
+                        <button className='btn-login'>Log in</button>
+                        <button className='btn-signup'>Sign up</button>
                         <NavDropdown title="Setting" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">Log in</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">

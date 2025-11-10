@@ -1,0 +1,40 @@
+// Override Bootstrap container max-width
+// File này được import SAU Bootstrap để override
+
+// Test: Style không cần media query để kiểm tra file có load không
+.container {
+  // Uncomment dòng dưới để test - nếu thấy nền đỏ nhạt thì file đã load
+  // background-color: rgba(255, 0, 0, 0.1) !important;
+}
+
+// Test: Thêm style không cần media query để đảm bảo file load
+.container {
+  // Uncomment để test - nếu thấy border thì file đã load
+  // border: 3px solid blue !important;
+}
+
+@media (min-width: 992px) {
+
+  .container,
+  .container-lg {
+    max-width: 1300px !important;
+    // Test: uncomment để kiểm tra media query
+    // background-color: rgba(0, 255, 0, 0.1) !important;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .container,
+  .container-xl {
+    max-width: 1300px !important;
+  }
+}
+
+@media (min-width: 1400px) {
+
+  .container,
+  .container-xxl {
+    max-width: 1300px !important;
+  }
+}
