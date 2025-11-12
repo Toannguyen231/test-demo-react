@@ -18,7 +18,7 @@ import {
     FaList,
     FaGithub,
 } from 'react-icons/fa';
-
+import { GiAllSeeingEye } from "react-icons/gi";
 const SideBar = ({ image = true, collapsed, rtl, toggled, handleToggleSidebar }) => {
     return (
         <>
@@ -42,7 +42,11 @@ const SideBar = ({ image = true, collapsed, rtl, toggled, handleToggleSidebar })
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        Ngoc Toan
+                        <div>
+                            <GiAllSeeingEye size="3rem" style={{ marginRight: '3px' }} />
+                            <span>Ngoc Toan</span>
+                        </div>
+
                     </div>
                 </SidebarHeader>
 
@@ -54,16 +58,15 @@ const SideBar = ({ image = true, collapsed, rtl, toggled, handleToggleSidebar })
                         >
                             dashboard
                         </MenuItem>
-                        <MenuItem icon={<FaGem />}> components</MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
                         <SubMenu
-                            suffix={<span className="badge yellow">3</span>}
                             icon={<FaRegLaughWink />}
+                            title='Features'
                         >
-                            <MenuItem>1</MenuItem>
-                            <MenuItem>2</MenuItem>
-                            <MenuItem>3</MenuItem>
+                            <MenuItem>Quản lý User</MenuItem>
+                            <MenuItem>Quản lý bài Quiz</MenuItem>
+                            <MenuItem>Quản lý câu hỏi</MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>
@@ -76,14 +79,14 @@ const SideBar = ({ image = true, collapsed, rtl, toggled, handleToggleSidebar })
                         }}
                     >
                         <a
-                            href="https://github.com/azouaoui-med/react-pro-sidebar"
+                            href="https://github.com/Toannguyen231"
                             target="_blank"
                             className="sidebar-btn"
                             rel="noopener noreferrer"
                         >
                             <FaGithub />
                             <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                                viewSource
+                                ToanNguyen231
                             </span>
                         </a>
                     </div>
