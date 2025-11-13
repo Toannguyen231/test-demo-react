@@ -19,6 +19,9 @@ import {
     FaGithub,
 } from 'react-icons/fa';
 import { GiAllSeeingEye } from "react-icons/gi";
+import { Link, NavLink } from 'react-router-dom';
+
+
 const SideBar = ({ image = true, collapsed, rtl, toggled, handleToggleSidebar }) => {
     return (
         <>
@@ -56,7 +59,8 @@ const SideBar = ({ image = true, collapsed, rtl, toggled, handleToggleSidebar })
                             icon={<FaTachometerAlt />}
                             suffix={<span className="badge red">New</span>}
                         >
-                            dashboard
+                            DashBoard
+                            <Link to="/admin" />
                         </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
@@ -64,7 +68,10 @@ const SideBar = ({ image = true, collapsed, rtl, toggled, handleToggleSidebar })
                             icon={<FaRegLaughWink />}
                             title='Features'
                         >
-                            <MenuItem>Quản lý User</MenuItem>
+                            <MenuItem>
+                                Quản lý User
+                                <Link to="/admin/manageruser" />
+                            </MenuItem>
                             <MenuItem>Quản lý bài Quiz</MenuItem>
                             <MenuItem>Quản lý câu hỏi</MenuItem>
                         </SubMenu>
