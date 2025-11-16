@@ -3,6 +3,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc"
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 function ModalCreateUser(props) {
     const { show, setShow } = props;
 
@@ -23,6 +27,7 @@ function ModalCreateUser(props) {
     const [role, setRole] = useState('USER');
     const [image, setImage] = useState(null);
     const [previewImage, setPreviewImage] = useState('');
+    const [loading, setLoading] = useState(false);
 
     function HandleUploadImage(event) {
         if (event.target && event.target.files && event.target.files[0]) {
@@ -35,8 +40,27 @@ function ModalCreateUser(props) {
         }
     }
 
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
+
+
     const handleSubmitCreateUser = async () => {
         //validate 
+        const isValidEmail = validateEmail(email);
+        if (!isValidEmail) {
+            toast.error('Invalid email address');
+            return;
+        }
+
+        if (!password) {
+            toast.error('Password cannot be empty');
+            return;
+        }
 
         //api create user
 
@@ -57,11 +81,20 @@ function ModalCreateUser(props) {
 
         let res = await axios.post('http://localhost:8081/api/v1/participant', data);
         console.log('Response from create user:', res);
+
+        if (res && res.data && res.data.EC === 0) {
+            toast.success(res.data.EM);
+            handleClose();
+            //clear form
+        } else {
+            toast.error(res.data.EM);
+        }
     }
 
     useEffect(() => {
         console.log('Preview image updated:', previewImage);
     }, [previewImage]);
+
 
     return (
         <>
