@@ -7,8 +7,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { postCreateUser } from '../../sevices/apiService'
 
-function ModalCreateUser(props) {
-    const { show, setShow, featchListUser } = props;
+function ModalUpdateUser(props) {
+    const { show, setShow } = props;
 
     const handleClose = () => {
         setShow(false)
@@ -20,6 +20,7 @@ function ModalCreateUser(props) {
         setPreviewImage('');
     };
     const handleShow = () => setShow(true);
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
@@ -78,7 +79,6 @@ function ModalCreateUser(props) {
             toast.success(res.data.EM);
             handleClose();
             //clear form
-            await props.featchListUser();
         } else {
             toast.error(res.data.EM);
         }
@@ -103,7 +103,7 @@ function ModalCreateUser(props) {
                 className='modal-add-user'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Add a user</Modal.Title>
+                    <Modal.Title>Update a use</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
@@ -158,4 +158,4 @@ function ModalCreateUser(props) {
     );
 }
 
-export default ModalCreateUser;
+export default ModalUpdateUser;
