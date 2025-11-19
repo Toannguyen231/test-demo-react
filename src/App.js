@@ -1,25 +1,9 @@
 import './App.scss';
-
-
-
-// class App extends React.Component {
-//   state = {
-//     name: 'chim',
-//     address: "Ha noi",
-//     age: 20
-//   }
-//   render() {
-//     return (
-//       <div>
-//         Hello world with React.js (Hoi Dan IT)
-//         <MyComponent></MyComponent>
-//         My name is {this.state.name} and I'm from {this.state.address}, I have {this.state.age} year old
-//       </div>
-//     );
-//   }
-// }
+import Nav from "./component/Header/Nav"
+import { Outlet } from 'react-router-dom';
 
 function App() {
+
   // const [chatMessages, setChatMessages] = React.useState([{
   //   message: "Toan",
   //   id: crypto.randomUUID()
@@ -77,7 +61,18 @@ function App() {
   // );
   return (
     <div className="app-container">
-      Hello world
+      <div className="header-container">
+        <Nav />
+      </div>
+
+      <div className="main-container">
+        <div className="sidenav-container">
+        </div>
+
+        <div className="content-container">
+          <Outlet />
+        </div>
+      </div>
     </div>
   );
 }
