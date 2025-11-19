@@ -11,11 +11,8 @@ import {
 import 'react-pro-sidebar/dist/css/styles.css';
 import sidebarBg from '../../accets/bg2.jpg';
 import {
-    FaGem,
-    FaHeart,
     FaTachometerAlt,
     FaRegLaughWink,
-    FaList,
     FaGithub,
 } from 'react-icons/fa';
 import { GiAllSeeingEye } from "react-icons/gi";

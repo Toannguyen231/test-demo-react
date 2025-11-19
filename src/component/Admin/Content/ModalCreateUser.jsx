@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc"
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { postCreateUser } from '../../sevices/apiService'
 
@@ -19,6 +18,7 @@ function ModalCreateUser(props) {
         setImage(null);
         setPreviewImage('');
     };
+
     const handleShow = () => setShow(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

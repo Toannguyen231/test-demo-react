@@ -1,6 +1,5 @@
 import './App.scss';
 import Nav from "./component/Header/Nav"
-import SideBar from "./component/Admin/sidebar"
 import { Outlet } from 'react-router-dom';
 
 function App() {

@@ -2,13 +2,12 @@ import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc"
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { postCreateUser } from '../../sevices/apiService'
-
+import _ from "lodash";
 function ModalUpdateUser(props) {
-    const { show, setShow } = props;
+    const { show, setShow, dataUpdate } = props;
 
     const handleClose = () => {
         setShow(false)
@@ -28,6 +27,20 @@ function ModalUpdateUser(props) {
     const [image, setImage] = useState(null);
     const [previewImage, setPreviewImage] = useState('');
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        console.log("check updata: ", dataUpdate);
+        if (!_.isEmpty(dataUpdate)) {
+            //update state
+            setEmail(dataUpdate.email);
+            setUsername(dataUpdate.username);
+            setRole(dataUpdate.role);
+            setImage(null);
+            if (dataUpdate.image)
+                setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
+
+        }
+    }, [dataUpdate])
 
     function HandleUploadImage(event) {
         if (event.target && event.target.files && event.target.files[0]) {
@@ -109,11 +122,17 @@ function ModalUpdateUser(props) {
                     <form className="row g-3">
                         <div className="col-md-6">
                             <label htmlFor="inputEmail4" className="form-label">Email</label>
-                            <input type="email" id="inputEmail4" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <input
+                                type="email"
+                                id="inputEmail4"
+                                className="form-control"
+                                value={email}
+                                disabled
+                                onChange={(e) => setEmail(e.target.value)} />
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="inputPassword4" className="form-label">Password</label>
-                            <input type="password" id="inputPassword4" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type="password" id="inputPassword4" className="form-control" value={password} disabled onChange={(e) => setPassword(e.target.value)} />
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="inputUsername" className="form-label">Username</label>

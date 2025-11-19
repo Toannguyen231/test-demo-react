@@ -1,4 +1,4 @@
-import React from "react";
+
 import ModalCreateUser from "./ModalCreateUser.jsx";
 import '../Content/ManageUser.scss'
 import { FcPlus } from "react-icons/fc"
@@ -11,6 +11,7 @@ const ManagerUser = (props) => {
     const [showModalCreateUser, setShowModalCreateUser] = useState(false);
     const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
     const [ListUsers, setListUsers] = useState([]);
+    const [dataUpdate, setDataUpdate] = useState({});
 
     useEffect(() => {
         featchListUser();
@@ -24,8 +25,10 @@ const ManagerUser = (props) => {
         }
     }
 
-    const handleClinkBtnUpdate = () => {
+    const handleClinkBtnUpdate = (user) => {
         setShowModalUpdateUser(true)
+        setDataUpdate(user);
+        console.log("check user: ", user);
     }
 
     return (
@@ -58,6 +61,7 @@ const ManagerUser = (props) => {
                 <ModalUpdateUser
                     show={showModalUpdateUser}
                     setShow={setShowModalUpdateUser}
+                    dataUpdate={dataUpdate}
                 />
             </div>
 
