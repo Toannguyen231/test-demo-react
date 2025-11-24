@@ -28,8 +28,11 @@ const ManagerUser = (props) => {
     const handleClinkBtnUpdate = (user) => {
         setShowModalUpdateUser(true)
         setDataUpdate(user);
-        console.log("check user: ", user);
     }
+
+    const resetUpdateUser = () => {
+        setDataUpdate({});
+    };
 
     return (
 
@@ -62,6 +65,8 @@ const ManagerUser = (props) => {
                     show={showModalUpdateUser}
                     setShow={setShowModalUpdateUser}
                     dataUpdate={dataUpdate}
+                    featchListUser={featchListUser}
+                    resetUpdateUser={resetUpdateUser}
                 />
             </div>
 

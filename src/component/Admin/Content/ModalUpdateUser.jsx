@@ -4,10 +4,10 @@ import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc"
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { postCreateUser } from '../../sevices/apiService'
+import { putUpdateUser } from '../../sevices/apiService'
 import _ from "lodash";
 function ModalUpdateUser(props) {
-    const { show, setShow, dataUpdate } = props;
+    const { show, setShow, dataUpdate, featchListUser, resetUpdateUser } = props;
 
     const handleClose = () => {
         setShow(false)
@@ -17,6 +17,7 @@ function ModalUpdateUser(props) {
         setRole('USER');
         setImage(null);
         setPreviewImage('');
+        props.resetUpdateUser();
     };
     const handleShow = () => setShow(true);
 
@@ -70,11 +71,6 @@ function ModalUpdateUser(props) {
             return;
         }
 
-        if (!password) {
-            toast.error('Password cannot be empty');
-            return;
-        }
-
         //api create user
 
         // let data = {
@@ -85,12 +81,13 @@ function ModalUpdateUser(props) {
         //     userImage: image
         // }
 
-        let res = await postCreateUser(email, password, username, role, image);
+        let res = await putUpdateUser(dataUpdate.id, username, role, image);
         console.log('Response from create user:', res);
 
         if (res && res.data && res.data.EC === 0) {
             toast.success(res.data.EM);
             handleClose();
+            await props.featchListUser();
             //clear form
         } else {
             toast.error(res.data.EM);

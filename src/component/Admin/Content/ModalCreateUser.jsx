@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { postCreateUser } from '../../sevices/apiService'
 
 function ModalCreateUser(props) {
-    const { show, setShow, featchListUser } = props;
+    const { show, setShow } = props;
 
     const handleClose = () => {
         setShow(false)
@@ -26,7 +26,6 @@ function ModalCreateUser(props) {
     const [role, setRole] = useState('USER');
     const [image, setImage] = useState(null);
     const [previewImage, setPreviewImage] = useState('');
-    const [loading, setLoading] = useState(false);
 
     function HandleUploadImage(event) {
         if (event.target && event.target.files && event.target.files[0]) {
