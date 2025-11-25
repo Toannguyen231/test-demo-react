@@ -31,4 +31,8 @@ const deleteUser = (userID) => {
     return axios.delete(`http://localhost:8081/api/v1/participant`, { data: { id: userID } });
 }
 
-export { postCreateUser, getAllUsers, putUpdateUser, deleteUser };
+const getPageUserWithPage = (page, limit) => {
+    return axios.get(`http://localhost:8081/api/v1/participant?page=${page}&limit=${limit}`);
+}
+
+export { postCreateUser, getAllUsers, putUpdateUser, deleteUser, getPageUserWithPage };

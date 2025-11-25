@@ -5,10 +5,12 @@ import { FcPlus } from "react-icons/fc"
 import { useState, useEffect } from "react";
 import Tables from "./Tables.jsx";
 import ModalUpdateUser from "./ModalUpdateUser.jsx";
-import { getAllUsers } from '../../sevices/apiService'
+import { getAllUsers, getPageUserWithPage } from '../../sevices/apiService'
 import ViewUser from '../Content/ViewUser.jsx'
 import DeleteUser from "./DeleteUser.jsx";
+import TableUserPagination from "./TableUserPagination.jsx";
 const ManagerUser = (props) => {
+    const LIMIT_USER = 6;
     const [showModalCreateUser, setShowModalCreateUser] = useState(false);
     const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
     const [showViewUser, setShowViewUser] = useState(false);
@@ -16,9 +18,11 @@ const ManagerUser = (props) => {
     const [ListUsers, setListUsers] = useState([]);
     const [dataUpdate, setDataUpdate] = useState({});
     const [dataDelete, setDataDelete] = useState({});
+    const [totalPages, setTotalPages] = useState(0);
 
     useEffect(() => {
-        featchListUser();
+        // featchListUser();
+        featchListUserWithPage(1);
     }, []);
 
     const featchListUser = async () => {
@@ -28,6 +32,19 @@ const ManagerUser = (props) => {
             setListUsers(res.data.DT);
         }
     }
+
+    const featchListUserWithPage = async (page) => {
+        let res = await getPageUserWithPage(page, LIMIT_USER);
+
+        if (res.data.EC === 0) {
+
+            // 🔥 NẾU API của bạn trả về DT.users
+            setListUsers(res.data.DT.users);
+
+            setTotalPages(res.data.DT.totalPages);
+        }
+    };
+
 
     const handleClinkBtnUpdate = (user) => {
         setShowModalUpdateUser(true)
@@ -64,12 +81,20 @@ const ManagerUser = (props) => {
                 </div>
 
                 <div className="table-user-container">
-                    <Tables
+                    <TableUserPagination
                         ListUsers={ListUsers}
                         handleClinkBtnUpdate={handleClinkBtnUpdate}
                         handleViewBtnUpdate={handleViewBtnUpdate}
                         handleDeleteBtnUpdate={handleDeleteBtnUpdate}
+                        featchListUserWithPage={featchListUserWithPage}
+                        totalPages={totalPages}
                     />
+                    {/* <Tables
+                        ListUsers={ListUsers}
+                        handleClinkBtnUpdate={handleClinkBtnUpdate}
+                        handleViewBtnUpdate={handleViewBtnUpdate}
+                        handleDeleteBtnUpdate={handleDeleteBtnUpdate}
+                    /> */}
                 </div>
                 <ModalCreateUser
                     show={showModalCreateUser}
