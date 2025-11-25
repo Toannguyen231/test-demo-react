@@ -33,9 +33,19 @@ const DeleteUser = (props) => {
     //     }
     // }
 
-    const hanleClickConfirm = () => {
+    const hanleClickConfirm = async () => {
 
-        alert("me");
+        let res = await deleteUser(dataDelete.id);
+        console.log('Response from delete user:', res);
+
+        if (res && res.data && res.data.EC === 0) {
+            toast.success(res.data.EM);
+            handleClose();
+            //clear form
+            await props.featchListUser();
+        } else {
+            toast.error(res.data.EM);
+        }
     }
 
     return (

@@ -41,7 +41,6 @@ const ManagerUser = (props) => {
 
     const handleDeleteBtnUpdate = (user) => {
         setShowDeleteUser(true);
-        console.log("check user delete: ", user);
         setDataDelete(user);
     }
 
