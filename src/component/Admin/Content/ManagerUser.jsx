@@ -6,12 +6,16 @@ import { useState, useEffect } from "react";
 import Tables from "./Tables.jsx";
 import ModalUpdateUser from "./ModalUpdateUser.jsx";
 import { getAllUsers } from '../../sevices/apiService'
-
+import ViewUser from '../Content/ViewUser.jsx'
+import DeleteUser from "./DeleteUser.jsx";
 const ManagerUser = (props) => {
     const [showModalCreateUser, setShowModalCreateUser] = useState(false);
     const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
+    const [showViewUser, setShowViewUser] = useState(false);
+    const [showDeleteUser, setShowDeleteUser] = useState(false);
     const [ListUsers, setListUsers] = useState([]);
     const [dataUpdate, setDataUpdate] = useState({});
+    const [dataDelete, setDataDelete] = useState({});
 
     useEffect(() => {
         featchListUser();
@@ -28,6 +32,17 @@ const ManagerUser = (props) => {
     const handleClinkBtnUpdate = (user) => {
         setShowModalUpdateUser(true)
         setDataUpdate(user);
+    }
+
+    const handleViewBtnUpdate = (user) => {
+        setShowViewUser(true);
+        setDataUpdate(user);
+    }
+
+    const handleDeleteBtnUpdate = (user) => {
+        setShowDeleteUser(true);
+        console.log("check user delete: ", user);
+        setDataDelete(user);
     }
 
     const resetUpdateUser = () => {
@@ -53,6 +68,8 @@ const ManagerUser = (props) => {
                     <Tables
                         ListUsers={ListUsers}
                         handleClinkBtnUpdate={handleClinkBtnUpdate}
+                        handleViewBtnUpdate={handleViewBtnUpdate}
+                        handleDeleteBtnUpdate={handleDeleteBtnUpdate}
                     />
                 </div>
                 <ModalCreateUser
@@ -68,8 +85,23 @@ const ManagerUser = (props) => {
                     featchListUser={featchListUser}
                     resetUpdateUser={resetUpdateUser}
                 />
-            </div>
 
+                <ViewUser
+                    show={showViewUser}
+                    setShow={setShowViewUser}
+                    dataUpdate={dataUpdate}
+                    resetUpdateUser={resetUpdateUser}
+                    featchListUser={featchListUser}
+                />
+
+                <DeleteUser
+                    show={showDeleteUser}
+                    setShow={setShowDeleteUser}
+                    dataDelete={dataDelete}
+                    resetUpdateUser={resetUpdateUser}
+                    featchListUser={featchListUser}
+                />
+            </div>
         </div>
     );
 }

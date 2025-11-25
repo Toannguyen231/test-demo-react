@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { putUpdateUser } from '../../sevices/apiService'
 import _ from "lodash";
-function ModalUpdateUser(props) {
+function ViewUser(props) {
     const { show, setShow, dataUpdate, featchListUser, resetUpdateUser } = props;
 
     const handleClose = () => {
@@ -27,20 +27,6 @@ function ModalUpdateUser(props) {
     const [role, setRole] = useState('USER');
     const [image, setImage] = useState(null);
     const [previewImage, setPreviewImage] = useState('');
-
-    useEffect(() => {
-        console.log("check updata: ", dataUpdate);
-        if (!_.isEmpty(dataUpdate)) {
-            //update state
-            setEmail(dataUpdate.email);
-            setUsername(dataUpdate.username);
-            setRole(dataUpdate.role);
-            setImage(null);
-            if (dataUpdate.image)
-                setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
-
-        }
-    }, [dataUpdate])
 
     function HandleUploadImage(event) {
         if (event.target && event.target.files && event.target.files[0]) {
@@ -97,6 +83,20 @@ function ModalUpdateUser(props) {
         console.log('Preview image updated:', previewImage);
     }, [previewImage]);
 
+    useEffect(() => {
+        if (!_.isEmpty(dataUpdate)) {
+            setEmail(dataUpdate.email || '');
+            setUsername(dataUpdate.username || '');
+            setRole(dataUpdate.role || 'USER');
+            setImage(null);
+            if (dataUpdate.image) {
+                setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
+            } else {
+                setPreviewImage('');
+            }
+        }
+    }, [dataUpdate]);
+
 
     return (
         <>
@@ -132,11 +132,11 @@ function ModalUpdateUser(props) {
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="inputUsername" className="form-label">Username</label>
-                            <input type="text" id="inputUsername" className="form-control" value={username} onChange={(e) => setUsername(e.target.value)} />
+                            <input type="text" id="inputUsername" className="form-control" value={username} disabled onChange={(e) => setUsername(e.target.value)} />
                         </div>
                         <div className="col-md-4">
                             <label className="form-label">Role</label>
-                            <select className="form-select" value={role} onChange={(e) => setRole(e.target.value)}>
+                            <select className="form-select" value={role} disabled onChange={(e) => setRole(e.target.value)}>
                                 <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
                             </select>
@@ -147,6 +147,7 @@ function ModalUpdateUser(props) {
                                 Upload file image
                             </label>
                             <input type="file" id='upload-photo' hidden
+                                disabled
                                 onChange={HandleUploadImage}
                             />
                         </div>
@@ -173,4 +174,4 @@ function ModalUpdateUser(props) {
     );
 }
 
-export default ModalUpdateUser;
+export default ViewUser;

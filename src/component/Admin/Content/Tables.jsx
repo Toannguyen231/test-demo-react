@@ -1,7 +1,7 @@
 
 const Tables = (props) => {
 
-    const { ListUsers, handleClinkBtnUpdate } = props;
+    const { ListUsers, handleClinkBtnUpdate, handleViewBtnUpdate, handleDeleteBtnUpdate } = props;
 
     return (
         <table className="table table-hover table-bordered">
@@ -24,9 +24,9 @@ const Tables = (props) => {
                                 <td>{item.email}</td>
                                 <td>{item.role}</td>
                                 <td>
-                                    <button className="btn btn-secondary">View</button>
+                                    <button className="btn btn-secondary" onClick={() => handleViewBtnUpdate(item)}>View</button>
                                     <button className="btn btn-warning mx-3" onClick={() => handleClinkBtnUpdate(item)}>Update</button>
-                                    <button className="btn btn-danger">Delete</button>
+                                    <button className="btn btn-danger" onClick={() => handleDeleteBtnUpdate(item)}>Delete</button>
                                 </td>
                             </tr>
                         );

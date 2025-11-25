@@ -27,4 +27,8 @@ const putUpdateUser = (id, username, role, image) => {
     return axios.put('http://localhost:8081/api/v1/participant', data);
 }
 
-export { postCreateUser, getAllUsers, putUpdateUser };
+const deleteUser = (id) => {
+    return axios.delete(`http://localhost:8081/api/v1/participant/${id}`);
+}
+
+export { postCreateUser, getAllUsers, putUpdateUser, deleteUser };
