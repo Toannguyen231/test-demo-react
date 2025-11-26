@@ -77,7 +77,8 @@ function ModalCreateUser(props) {
             toast.success(res.data.EM);
             handleClose();
             //clear form
-            await props.featchListUser();
+            if (props.setCurrentPage) props.setCurrentPage(1);
+            await props.featchListUserWithPage(1);
         } else {
             toast.error(res.data.EM);
         }

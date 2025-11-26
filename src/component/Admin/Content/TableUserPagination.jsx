@@ -5,11 +5,12 @@ import ReactPaginate from 'react-paginate';
 
 const TableUserPagination = (props) => {
     const { ListUsers, handleClinkBtnUpdate, handleViewBtnUpdate,
-        handleDeleteBtnUpdate, featchListUserWithPage, totalPages } = props;
+        handleDeleteBtnUpdate, featchListUserWithPage, totalPages, currentPage, setCurrentPage } = props;
 
-    const handlePageClick = (event) => {
-        const page = event.selected + 1; // API của bạn bắt đầu từ 1
-        featchListUserWithPage(page);
+    const handlePageClick = async (event) => {
+        await featchListUserWithPage(event.selected + 1);
+        setCurrentPage(event.selected + 1);
+
     };
     return (
         <div>
@@ -67,6 +68,7 @@ const TableUserPagination = (props) => {
                 breakLinkClassName="page-link"
                 containerClassName="pagination"
                 activeClassName="active"
+                forcePage={currentPage - 1}
             />
         </div>
     );

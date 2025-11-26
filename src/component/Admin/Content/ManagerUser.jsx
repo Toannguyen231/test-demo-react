@@ -19,7 +19,7 @@ const ManagerUser = (props) => {
     const [dataUpdate, setDataUpdate] = useState({});
     const [dataDelete, setDataDelete] = useState({});
     const [totalPages, setTotalPages] = useState(0);
-
+    const [currentPage, setCurrentPage] = useState();
     useEffect(() => {
         // featchListUser();
         featchListUserWithPage(1);
@@ -40,7 +40,6 @@ const ManagerUser = (props) => {
 
             // 🔥 NẾU API của bạn trả về DT.users
             setListUsers(res.data.DT.users);
-
             setTotalPages(res.data.DT.totalPages);
         }
     };
@@ -88,6 +87,8 @@ const ManagerUser = (props) => {
                         handleDeleteBtnUpdate={handleDeleteBtnUpdate}
                         featchListUserWithPage={featchListUserWithPage}
                         totalPages={totalPages}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
                     />
                     {/* <Tables
                         ListUsers={ListUsers}
@@ -100,6 +101,9 @@ const ManagerUser = (props) => {
                     show={showModalCreateUser}
                     setShow={setShowModalCreateUser}
                     featchListUser={featchListUser}
+                    featchListUserWithPage={featchListUserWithPage}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
                 />
 
                 <ModalUpdateUser
@@ -108,6 +112,9 @@ const ManagerUser = (props) => {
                     dataUpdate={dataUpdate}
                     featchListUser={featchListUser}
                     resetUpdateUser={resetUpdateUser}
+                    featchListUserWithPage={featchListUserWithPage}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
                 />
 
                 <ViewUser
@@ -116,6 +123,9 @@ const ManagerUser = (props) => {
                     dataUpdate={dataUpdate}
                     resetUpdateUser={resetUpdateUser}
                     featchListUser={featchListUser}
+                    featchListUserWithPage={featchListUserWithPage}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
                 />
 
                 <DeleteUser
@@ -124,6 +134,9 @@ const ManagerUser = (props) => {
                     dataDelete={dataDelete}
                     resetUpdateUser={resetUpdateUser}
                     featchListUser={featchListUser}
+                    featchListUserWithPage={featchListUserWithPage}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
                 />
             </div>
         </div>

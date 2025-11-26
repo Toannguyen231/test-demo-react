@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { putUpdateUser } from '../../sevices/apiService'
 import _ from "lodash";
 function ModalUpdateUser(props) {
-    const { show, setShow, dataUpdate, featchListUser, resetUpdateUser } = props;
+    const { show, setShow, dataUpdate, featchListUserWithPage, resetUpdateUser, currentPage, setCurrentPage } = props;
 
     const handleClose = () => {
         setShow(false)

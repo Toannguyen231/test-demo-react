@@ -5,7 +5,7 @@ import { deleteUser } from '../../sevices/apiService';
 import { toast } from 'react-toastify';
 
 const DeleteUser = (props) => {
-    const { show, setShow, dataUpdate, featchListUser, resetUpdateUser, dataDelete } = props;
+    const { show, setShow, dataUpdate, featchListUserWithPage, resetUpdateUser, dataDelete, currentPage, setCurrentPage } = props;
     const [loading, setLoading] = useState(false);
     const handleClose = () => setShow(false);
 
@@ -42,7 +42,8 @@ const DeleteUser = (props) => {
             toast.success(res.data.EM);
             handleClose();
             //clear form
-            await props.featchListUser();
+            if (setCurrentPage) setCurrentPage(1);
+            await props.featchListUserWithPage(1);
         } else {
             toast.error(res.data.EM);
         }
