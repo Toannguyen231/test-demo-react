@@ -10,6 +10,7 @@ import User from './component/User/User.jsx';
 import Home from './component/Home/Home.jsx';
 import ManagerUser from './component/Admin/Content/ManagerUser.jsx';
 import DashBoard from './component/Admin/Content/DashBoard.jsx'
+import Login from './component/Admin/Auth/Login.jsx'
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -23,6 +24,7 @@ ReactDOM.render(
           <Route index element={<DashBoard />} />
           <Route path='manageruser' element={<ManagerUser />} />
         </Route>
+        <Route path='login' element={<Login />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

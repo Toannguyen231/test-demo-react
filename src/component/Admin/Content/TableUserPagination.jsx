@@ -49,6 +49,9 @@ const TableUserPagination = (props) => {
                     }
                 </tbody>
             </table>
+            {
+                // Ensure forcePage is a valid number — fallback to 0 when currentPage is undefined
+            }
             <ReactPaginate
                 pageCount={totalPages}
                 onPageChange={handlePageClick}
@@ -68,7 +71,7 @@ const TableUserPagination = (props) => {
                 breakLinkClassName="page-link"
                 containerClassName="pagination"
                 activeClassName="active"
-                forcePage={currentPage - 1}
+                forcePage={Number.isInteger(currentPage) ? currentPage - 1 : 0}
             />
         </div>
     );

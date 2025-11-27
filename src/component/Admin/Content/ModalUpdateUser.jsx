@@ -86,7 +86,7 @@ function ModalUpdateUser(props) {
         if (res && res.data && res.data.EC === 0) {
             toast.success(res.data.EM);
             handleClose();
-            await props.featchListUser();
+            await props.featchListUserWithPage(currentPage);
             //clear form
         } else {
             toast.error(res.data.EM);
