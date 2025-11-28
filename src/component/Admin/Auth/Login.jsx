@@ -1,101 +1,90 @@
-import React, { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import "./Login.scss"
+import loginImg from '../../../accets/pexels-tuan-phan-2156993475-34600814.jpg';
+import { TbBrandGoogle, TbBrandWindows } from "react-icons/tb";
 
 function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [rememberMe, setRememberMe] = useState(false);
-    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleGoogleSignup = () => {
+        toast.info('Google signup coming soon!');
+    };
 
-        if (!email || !password) {
-            toast.error('Please fill in all fields');
-            return;
-        }
+    const handleMicrosoftSignup = () => {
+        toast.info('Microsoft signup coming soon!');
+    };
 
-        try {
-            setLoading(true);
-            console.log('Login attempt:', { email, password, rememberMe });
-            toast.success('Login successful!');
-        } catch (error) {
-            console.error('Login error:', error);
-            toast.error('Login failed. Please try again.');
-        } finally {
-            setLoading(false);
-        }
+    const handleEmailSignup = () => {
+        toast.info('Email signup coming soon!');
+    };
+
+    const handleLogin = () => {
+        navigate('/admin');
     };
 
     return (
-        <div className="container mt-5">
-            <div className="row justify-content-center">
-                <div className="col-md-6">
-                    <div className="card">
-                        <div className="card-body">
-                            <h2 className="card-title text-center mb-4">Sign In</h2>
-                            <form onSubmit={handleSubmit}>
-                                <div className="form-group mb-4">
-                                    <label htmlFor="email" className="form-label">Email address</label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        className="form-control"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        placeholder="Enter your email"
-                                    />
-                                </div>
+        <div className="login-container">
+            {/* Left Panel */}
+            <div className="login-left">
+                <div className="login-left-content">
+                    <h1 className="login-title">Sign up<br />and come on in</h1>
+                    <div className="login-illustration">
+                        <img src={loginImg} alt="Login illustration" className="illustration-img" />
+                    </div>
+                </div>
+                <div className="login-footer">
+                    <p>© Typeform</p>
+                </div>
+            </div>
 
-                                <div className="form-group mb-4">
-                                    <label htmlFor="password" className="form-label">Password</label>
-                                    <input
-                                        type="password"
-                                        id="password"
-                                        className="form-control"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        placeholder="Enter your password"
-                                    />
-                                </div>
+            {/* Right Panel */}
+            <div className="login-right">
+                <div className="login-right-header">
+                    <div className="language-selector">
+                        <span className="language-icon">🌐</span>
+                        <span className="language-text">English</span>
+                    </div>
+                    <div className="login-link">
+                        <span>Already have an account?</span>
+                        <button className="link-button" onClick={handleLogin}>Log in</button>
+                    </div>
+                </div>
 
-                                <div className="row mb-4">
-                                    <div className="col d-flex justify-content-start">
-                                        <div className="form-check">
-                                            <input
-                                                className="form-check-input"
-                                                type="checkbox"
-                                                id="rememberMe"
-                                                checked={rememberMe}
-                                                onChange={(e) => setRememberMe(e.target.checked)}
-                                            />
-                                            <label className="form-check-label" htmlFor="rememberMe">
-                                                Remember me
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div className="col text-end">
-                                        <a href="#!" className="text-decoration-none">Forgot password?</a>
-                                    </div>
-                                </div>
-
-                                <button
-                                    type="submit"
-                                    className="btn btn-primary w-100 mb-4"
-                                    disabled={loading}
-                                >
-                                    {loading ? 'Signing in...' : 'Sign in'}
-                                </button>
-                            </form>
-
-                            <div className="text-center">
-                                <p>Not a member? <a href="#!" className="text-decoration-none">Register</a></p>
-                            </div>
+                <div className="login-right-content">
+                    <div className="login-brand">
+                        <div className="brand-icon">
+                            <span className="brand-square"></span>
+                            <span className="brand-circle"></span>
                         </div>
+                        <h2 className="brand-name">Typeform</h2>
+                    </div>
+
+                    <p className="login-tagline">
+                        Get better data with conversational forms,<br />
+                        surveys, quizzes & more.
+                    </p>
+
+                    <div className="login-buttons">
+                        <button className="btn-social btn-google" onClick={handleGoogleSignup}>
+                            <TbBrandGoogle size={20} />
+                            <span>Sign up with Google</span>
+                        </button>
+
+                        <button className="btn-social btn-microsoft" onClick={handleMicrosoftSignup}>
+                            <TbBrandWindows size={20} />
+                            <span>Sign up with Microsoft</span>
+                        </button>
+
+                        <div className="divider">
+                            <span>OR</span>
+                        </div>
+
+                        <button className="btn-email" onClick={handleEmailSignup}>
+                            Sign up with email
+                        </button>
                     </div>
                 </div>
             </div>
