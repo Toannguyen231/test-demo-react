@@ -101,17 +101,20 @@
                 }
 
                 .link-button {
-                    background: none;
+                    background: #644848;
                     border: none;
-                    color: #262627;
+                    color: #fdfdff;
                     font-weight: 600;
                     cursor: pointer;
-                    padding: 0;
+                    padding: 10px 20px;
                     text-decoration: underline;
                     font-size: 14px;
+                    border-radius: 5px;
+                    text-decoration: none;
 
                     &:hover {
-                        color: #000;
+                        color: #222020;
+                        background: #9f9595;
                     }
                 }
             }
