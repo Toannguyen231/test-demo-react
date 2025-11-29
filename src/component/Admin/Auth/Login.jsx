@@ -62,10 +62,10 @@ function Login() {
                         <h2 className="brand-name">Typeform</h2>
                     </div>
 
-                    <p className="login-tagline">
-                        Get better data with conversational forms,<br />
-                        surveys, quizzes & more.
-                    </p>
+                    <div className='login-right-inputs'>
+                        <input type="text" placeholder="Email address" className='input-email' size="30" />
+                        <input type="text" placeholder="Password" className='input-password' />
+                    </div>
 
                     <div className="login-buttons">
                         <button className="btn-social btn-google" onClick={handleGoogleSignup}>
