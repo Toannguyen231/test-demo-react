@@ -28,6 +28,7 @@ ReactDOM.render(
         <Route path='login' element={<Login />} />
         <Route path='signup' element={<SignUp />} />
       </Routes>
+
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

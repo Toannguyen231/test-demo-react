@@ -128,9 +128,32 @@
                     }
 
                     .login-input-group {
+                        display: flex;
                         margin-top: 8px;
+                        flex-direction: column;
+                        gap: 10px;
 
                         .input-email {
+                            width: 100%;
+                            padding: 14px 16px;
+                            border: 1.5px solid #e0e0e0;
+                            border-radius: 8px;
+                            font-size: 15px;
+                            color: #262627;
+                            transition: all 0.2s ease;
+                            box-sizing: border-box;
+
+                            &::placeholder {
+                                color: #999;
+                            }
+
+                            &:focus {
+                                outline: none;
+                                border-color: #262627;
+                            }
+                        }
+
+                        .input-password {
                             width: 100%;
                             padding: 14px 16px;
                             border: 1.5px solid #e0e0e0;
@@ -415,6 +438,7 @@
 
         .login-right {
             .decorative-content {
+
                 .preview-card,
                 .cta-card,
                 .optimize-button,
@@ -437,6 +461,7 @@
             flex: 0 0 50%;
 
             .decorative-content {
+
                 .preview-card,
                 .cta-card {
                     display: none;

@@ -80,6 +80,7 @@ function ModalCreateUser(props) {
             props.setCurrentPage(props.currentPage);
 
             await props.featchListUserWithPage(props.currentPage);
+            toast.success('User created successfully');
         } else {
             toast.error(res.data.EM);
         }

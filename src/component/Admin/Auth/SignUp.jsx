@@ -1,7 +1,7 @@
 
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./SignUp.scss"
 import SignUpImg from '../../../accets/pexels-tuan-phan-2156993475-34600814.jpg';
@@ -11,6 +11,7 @@ function SignUp() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [userName, setUserName] = useState("");
     const validateEmail = (email) => {
         return String(email)
             .toLowerCase()
@@ -31,7 +32,7 @@ function SignUp() {
             toast.error('Password cannot be empty');
             return;
         }
-        let res = await postCreateSignUp(email, password);
+        let res = await postCreateSignUp(userName, email, password);
 
         if (res && res.data && res.data.EC === 0) {
             toast.success(res.data.EM);
@@ -60,6 +61,16 @@ function SignUp() {
 
     return (
         <div className="SignUp-container">
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             {/* Left Panel */}
             <div className="SignUp-left">
                 <div className="SignUp-left-content">
@@ -96,8 +107,24 @@ function SignUp() {
                     </div>
 
                     <div className='SignUp-right-inputs'>
-                        <input type="text" placeholder="Email address" className='input-email' size="30" value={email} onChange={(e) => setEmail(e.target.value)} />
-                        <input type="password" placeholder="Password" className='input-password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <input
+                            type="text"
+                            placeholder='User Name'
+                            className='input-userName'
+                            size="30"
+                            value={userName} onChange={(e) => setUserName(e.target.value)} />
+                        <input
+                            type="text"
+                            placeholder="Email address"
+                            className='input-email'
+                            size="30" value={email}
+                            onChange={(e) => setEmail(e.target.value)} />
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            className='input-password'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)} />
                     </div>
 
                     <div className="SignUp-buttons">

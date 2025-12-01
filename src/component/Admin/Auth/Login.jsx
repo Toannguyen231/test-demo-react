@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Login.scss";
 import { FcGoogle } from "react-icons/fc";
@@ -34,16 +34,30 @@ function Login() {
             return;
         }
 
-        // Call API
-        let res = await postLogin(email, password);
+        try {
+            // Call API
+            let res = await postLogin(email, password);
 
-        if (res && res.data && res.data.EC === 0) {
-            toast.success(res.data.EM);
-            navigate('/admin');
-        } else {
-            toast.error(res?.data?.EM || 'Login failed');
+            if (res && res.data && res.data.EC === 0) {
+                toast.success("login successful");
+                navigate('/admin');
+            } else {
+                // Trường hợp API trả 2xx nhưng EC != 0
+                toast.error(res?.data?.EM || "login failed");
+            }
+
+            console.log("check res Login: ", res);
+        } catch (err) {
+            console.log("Login error: ", err);
+
+            // Axios error → đọc message từ server nếu có
+            const msg =
+                err?.response?.data?.EM ||           // nếu backend trả EM
+                err?.response?.data?.message ||      // hoặc message
+                "Login failed. Please check your email or password.";
+
+            toast.error(msg);
         }
-        console.log("check res Login: ", res);
     };
 
     const handleGoogleLogin = () => {
@@ -55,7 +69,7 @@ function Login() {
     };
 
     const handleNavigateSignUp = () => {
-        navigate('/signup');
+        navigate('/signup/register');
     };
 
     const handleSSOLogin = () => {
@@ -64,6 +78,17 @@ function Login() {
 
     return (
         <div className="login-container">
+            {/* CHỖ QUAN TRỌNG: ToastContainer PHẢI TỒN TẠI Ở ĐÂY */}
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             {/* Left Panel - Form Section */}
             <div className="login-left">
                 <div className="login-content">
@@ -102,6 +127,13 @@ function Login() {
                                     className="input-email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                />
+                                <input
+                                    type="password"
+                                    placeholder="Password"
+                                    className="input-password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
 
