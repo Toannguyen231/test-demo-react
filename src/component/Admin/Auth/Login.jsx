@@ -1,90 +1,154 @@
-
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import "./Login.scss"
-import loginImg from '../../../accets/pexels-tuan-phan-2156993475-34600814.jpg';
+import "./Login.scss";
+import { FcGoogle } from "react-icons/fc";
+import { SiMicrosoft } from "react-icons/si";
+import { postLogin } from '../../sevices/apiService';
 import { TbBrandGoogle, TbBrandWindows } from "react-icons/tb";
 
 function Login() {
     const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    const handleGoogleSignup = () => {
-        toast.info('Google signup coming soon!');
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
     };
 
-    const handleMicrosoftSignup = () => {
-        toast.info('Microsoft signup coming soon!');
+    const handleSubmitLogin = async () => {
+        // Validate
+        const isValidEmail = validateEmail(email);
+        if (!isValidEmail) {
+            toast.error('Invalid email address');
+            return;
+        }
+
+        if (!password) {
+            toast.error('Password cannot be empty');
+            return;
+        }
+
+        // Call API
+        let res = await postLogin(email, password);
+
+        if (res && res.data && res.data.EC === 0) {
+            toast.success(res.data.EM);
+            navigate('/admin');
+        } else {
+            toast.error(res?.data?.EM || 'Login failed');
+        }
+        console.log("check res Login: ", res);
     };
 
-    const handleEmailSignup = () => {
-        toast.info('Email signup coming soon!');
+    const handleGoogleLogin = () => {
+        toast.info('Google login coming soon!');
     };
 
-    const handleLogin = () => {
-        navigate('/admin');
+    const handleMicrosoftLogin = () => {
+        toast.info('Microsoft login coming soon!');
+    };
+
+    const handleNavigateSignUp = () => {
+        navigate('/signup');
+    };
+
+    const handleSSOLogin = () => {
+        toast.info('SSO login coming soon!');
     };
 
     return (
         <div className="login-container">
-            {/* Left Panel */}
+            {/* Left Panel - Form Section */}
             <div className="login-left">
-                <div className="login-left-content">
-                    <h1 className="login-title">Sign up<br />and come on in</h1>
-                    <div className="login-illustration">
-                        <img src={loginImg} alt="Login illustration" className="illustration-img" />
+                <div className="login-content">
+                    <div className="login-header">
+                        <div className="brand-logo">
+                            <div className="brand-icon">
+                                <span className="brand-square"></span>
+                                <span className="brand-circle"></span>
+                            </div>
+                            <h2 className="brand-name">Typeform</h2>
+                        </div>
+                    </div>
+
+                    <div className="login-form">
+                        <h1 className="login-title">Log in or Sign up</h1>
+                        <p className="login-subtitle">
+                            Get better data with conversational forms, surveys,<br />
+                            quizzes & more.
+                        </p>
+
+                        <div className="login-buttons">
+                            <button className="btn-social btn-google" onClick={handleGoogleLogin}>
+                                <FcGoogle size={20} />
+                                <span>Continue with Google</span>
+                            </button>
+
+                            <button className="btn-social btn-microsoft" onClick={handleMicrosoftLogin}>
+                                <TbBrandWindows size={20} />
+                                <span>Continue with Microsoft</span>
+                            </button>
+
+                            <div className="login-input-group">
+                                <input
+                                    type="email"
+                                    placeholder="Email address"
+                                    className="input-email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
+
+                            <button className="btn-email" onClick={handleSubmitLogin}>
+                                Continue with email
+                            </button>
+
+                            <button className="btn-sso" onClick={handleSSOLogin}>
+                                Log in with SSO
+                            </button>
+                        </div>
                     </div>
                 </div>
+
                 <div className="login-footer">
-                    <p>© Typeform</p>
+                    <p>Don't have an account? <button className="link-button" onClick={handleNavigateSignUp}>Sign up</button></p>
                 </div>
             </div>
 
-            {/* Right Panel */}
+            {/* Right Panel - Decorative Section */}
             <div className="login-right">
-                <div className="login-right-header">
-                    <div className="language-selector">
-                        <span className="language-icon">🌐</span>
-                        <span className="language-text">English</span>
-                    </div>
-                    <div className="login-link">
-                        <span>Already have an account?</span>
-                        <button className="link-button" onClick={handleLogin}>Log in</button>
-                    </div>
-                </div>
-
-                <div className="login-right-content">
-                    <div className="login-brand">
-                        <div className="brand-icon">
-                            <span className="brand-square"></span>
-                            <span className="brand-circle"></span>
+                <div className="decorative-content">
+                    <div className="gradient-blob"></div>
+                    <div className="preview-card">
+                        <div className="preview-header">
+                            <span className="preview-text">Logo area</span>
                         </div>
-                        <h2 className="brand-name">Typeform</h2>
-                    </div>
-
-                    <div className='login-right-inputs'>
-                        <input type="text" placeholder="Email address" className='input-email' size="30" />
-                        <input type="text" placeholder="Password" className='input-password' />
-                    </div>
-
-                    <div className="login-buttons">
-                        <button className="btn-social btn-google" onClick={handleGoogleSignup}>
-                            <TbBrandGoogle size={20} />
-                            <span>Sign up with Google</span>
-                        </button>
-
-                        <button className="btn-social btn-microsoft" onClick={handleMicrosoftSignup}>
-                            <TbBrandWindows size={20} />
-                            <span>Sign up with Microsoft</span>
-                        </button>
-
-                        <div className="divider">
-                            <span>OR</span>
+                        <div className="preview-body">
+                            <div className="preview-placeholder"></div>
                         </div>
-
-                        <button className="btn-email" onClick={handleEmailSignup}>
-                            Sign up with email
-                        </button>
+                    </div>
+                    <div className="cta-card">
+                        <h3 className="cta-title">Ready for<br />your next big<br />adventure?</h3>
+                        <button className="cta-button">Book now</button>
+                    </div>
+                    <button className="optimize-button">
+                        <span className="optimize-icon">✨</span>
+                        <span>Optimize</span>
+                    </button>
+                    <div className="color-palette">
+                        <div className="color-dot color-orange"></div>
+                        <div className="color-dot color-blue"></div>
+                        <div className="color-dot color-teal"></div>
+                        <div className="color-dot color-dark"></div>
+                    </div>
+                    <div className="font-selector">
+                        <span>Select a font</span>
                     </div>
                 </div>
             </div>

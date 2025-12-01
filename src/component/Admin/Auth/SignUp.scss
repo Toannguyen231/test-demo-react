@@ -1,0 +1,324 @@
+.SignUp-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+
+    // Left Panel - Dark Side
+    .SignUp-left {
+        flex: 1;
+        background-color: #3C323E;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 60px;
+        position: relative;
+
+        .SignUp-left-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+
+            .SignUp-title {
+                color: #fff;
+                font-size: 3rem;
+                font-weight: 700;
+                line-height: 1.2;
+                margin-bottom: 60px;
+                font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            }
+
+            .SignUp-illustration {
+                max-width: 450px;
+                width: 100%;
+
+                .illustration-img {
+                    width: 100%;
+                    height: auto;
+                    border-radius: 12px;
+                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                }
+            }
+        }
+
+        .SignUp-footer {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+
+            p {
+                margin: 0;
+            }
+        }
+    }
+
+    // Right Panel - White Side
+    .SignUp-right {
+        flex: 1;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        padding: 40px 60px;
+
+        .SignUp-right-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+
+            .language-selector {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                cursor: pointer;
+                padding: 8px 12px;
+                border-radius: 8px;
+                transition: background-color 0.2s;
+
+                &:hover {
+                    background-color: #f5f5f5;
+                }
+
+                .language-icon {
+                    font-size: 18px;
+                }
+
+                .language-text {
+                    font-size: 14px;
+                    color: #333;
+                }
+            }
+
+            .SignUp-link {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 14px;
+
+                span {
+                    color: #666;
+                }
+
+                .link-button {
+                    background: #644848;
+                    border: none;
+                    color: #fdfdff;
+                    font-weight: 600;
+                    cursor: pointer;
+                    padding: 10px 20px;
+                    font-size: 14px;
+                    border-radius: 5px;
+                    text-decoration: none;
+
+                    &:hover {
+                        color: #222020;
+                        background: #9f9595;
+                    }
+                }
+            }
+        }
+
+        .SignUp-right-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 480px;
+            margin: 0 auto;
+            width: 100%;
+
+            .SignUp-right-inputs {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .input-email {
+                    padding: 10px;
+                    border-width: 2px;
+                    border-style: solid;
+                    border-color: #c5c5c5;
+                    border-radius: 10px;
+                }
+
+                .input-password {
+                    padding: 10px;
+                    border-width: 2px;
+                    border-style: solid;
+                    border-color: #c5c5c5;
+                    margin-bottom: 20px;
+                    border-radius: 10px;
+                }
+            }
+
+            .SignUp-brand {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 30px;
+
+                .brand-icon {
+                    display: flex;
+                    align-items: center;
+                    gap: 2px;
+                    font-size: 24px;
+
+                    .brand-square {
+                        width: 16px;
+                        height: 16px;
+                        background-color: #262627;
+                        border-radius: 2px;
+                    }
+
+                    .brand-circle {
+                        width: 16px;
+                        height: 16px;
+                        background-color: #262627;
+                        border-radius: 50%;
+                    }
+                }
+
+                .brand-name {
+                    font-size: 24px;
+                    font-weight: 700;
+                    color: #262627;
+                    margin: 0;
+                }
+            }
+
+            .SignUp-tagline {
+                font-size: 18px;
+                color: #666;
+                line-height: 1.6;
+                margin-bottom: 40px;
+            }
+
+            .SignUp-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+
+                .btn-social {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 12px;
+                    padding: 14px 24px;
+                    border: 1px solid #e0e0e0;
+                    border-radius: 8px;
+                    background-color: #fff;
+                    font-size: 16px;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    color: #262627;
+
+                    &:hover {
+                        background-color: #f9f9f9;
+                        border-color: #d0d0d0;
+                    }
+
+                    &:active {
+                        transform: scale(0.98);
+                    }
+
+                    svg {
+                        flex-shrink: 0;
+                    }
+                }
+
+                .btn-google {
+                    svg {
+                        color: #4285f4;
+                    }
+                }
+
+                .btn-microsoft {
+                    svg {
+                        color: #00a4ef;
+                    }
+                }
+
+                .divider {
+                    display: flex;
+                    align-items: center;
+                    text-align: center;
+                    margin: 8px 0;
+
+                    &::before,
+                    &::after {
+                        content: '';
+                        flex: 1;
+                        border-bottom: 1px solid #e0e0e0;
+                    }
+
+                    span {
+                        padding: 0 16px;
+                        color: #999;
+                        font-size: 14px;
+                        font-weight: 500;
+                    }
+                }
+
+                .btn-email {
+                    padding: 14px 24px;
+                    border: none;
+                    border-radius: 8px;
+                    background-color: #262627;
+                    color: #fff;
+                    font-size: 16px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.2s;
+
+                    &:hover {
+                        background-color: #000;
+                    }
+
+                    &:active {
+                        transform: scale(0.98);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+    .SignUp-container {
+        .SignUp-left {
+            padding: 40px;
+
+            .SignUp-left-content {
+                .SignUp-title {
+                    font-size: 2.5rem;
+                }
+            }
+        }
+
+        .SignUp-right {
+            padding: 30px 40px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .SignUp-container {
+        flex-direction: column;
+
+        .SignUp-left {
+            display: none;
+        }
+
+        .SignUp-right {
+            flex: 1;
+            padding: 20px;
+
+            .SignUp-right-content {
+                justify-content: flex-start;
+                padding-top: 40px;
+            }
+        }
+    }
+}

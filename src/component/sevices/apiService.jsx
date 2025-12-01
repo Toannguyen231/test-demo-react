@@ -12,6 +12,22 @@ const postCreateUser = (email, password, username, role, image) => {
     return axios.post('http://localhost:8081/api/v1/participant', data);
 }
 
+const postCreateSignUp = (email, password) => {
+
+    const data = new FormData();
+    data.append('email', email);
+    data.append('password', password);
+    return axios.post("http://localhost:8081/api/v1/register", data);
+}
+
+const postLogin = (email, password) => {
+
+    const data = new FormData();
+    data.append('email', email);
+    data.append('password', password);
+    return axios.post("http://localhost:8081/api/v1/login", data);
+}
+
 const getAllUsers = () => {
     return axios.get('http://localhost:8081/api/v1/participant/all');
 }
@@ -35,4 +51,4 @@ const getPageUserWithPage = (page, limit) => {
     return axios.get(`http://localhost:8081/api/v1/participant?page=${page}&limit=${limit}`);
 }
 
-export { postCreateUser, getAllUsers, putUpdateUser, deleteUser, getPageUserWithPage };
+export { postCreateUser, getAllUsers, putUpdateUser, deleteUser, getPageUserWithPage, postCreateSignUp, postLogin };

@@ -11,6 +11,7 @@ import Home from './component/Home/Home.jsx';
 import ManagerUser from './component/Admin/Content/ManagerUser.jsx';
 import DashBoard from './component/Admin/Content/DashBoard.jsx'
 import Login from './component/Admin/Auth/Login.jsx'
+import SignUp from './component/Admin/Auth/SignUp.jsx';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -25,6 +26,7 @@ ReactDOM.render(
           <Route path='manageruser' element={<ManagerUser />} />
         </Route>
         <Route path='login' element={<Login />} />
+        <Route path='signup' element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
