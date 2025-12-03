@@ -5,7 +5,7 @@ import { FcPlus } from "react-icons/fc"
 import { useState, useEffect } from "react";
 import Tables from "./Tables.jsx";
 import ModalUpdateUser from "./ModalUpdateUser.jsx";
-import { getAllUsers, getPageUserWithPage } from '../../sevices/apiService'
+import { getAllUsers, getPageUserWithPage } from '../../sevices/apiService.jsx'
 import ViewUser from '../Content/ViewUser.jsx'
 import DeleteUser from "./DeleteUser.jsx";
 import TableUserPagination from "./TableUserPagination.jsx";

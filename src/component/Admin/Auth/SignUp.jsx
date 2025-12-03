@@ -20,7 +20,7 @@ function SignUp() {
             );
     };
 
-    const handleSupmitSignUp = async () => {
+    const handleSubmitSignUp = async () => {
         //validate 
         const isValidEmail = validateEmail(email);
         if (!isValidEmail) {
@@ -36,7 +36,7 @@ function SignUp() {
 
         if (res && res.data && res.data.EC === 0) {
             toast.success(res.data.EM);
-            navigate('/admin');
+            navigate('/');
         } else {
             toast.error(res?.data?.EM || 'SignUp failed');
         }
@@ -142,7 +142,7 @@ function SignUp() {
                             <span>OR</span>
                         </div>
 
-                        <button className="btn-email" onClick={handleSupmitSignUp}>
+                        <button className="btn-email" onClick={handleSubmitSignUp}>
                             Sign up with email
                         </button>
                     </div>

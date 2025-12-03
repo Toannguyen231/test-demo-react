@@ -3,8 +3,10 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink, useNavigate } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 const Header = () => {
+    const account = useSelector(state => state.user.account);
+    const isAnthenticated = useSelector(state => state.user.isAnthenticated);
     const navigate = useNavigate();
     const handleClickSignUp = () => {
         navigate('/signup');
@@ -27,25 +29,42 @@ const Header = () => {
                         <NavLink to="/admin" className='nav-link'>Admin</NavLink>
                     </Nav>
                     <Nav>
+                        {isAnthenticated === false ?
+                            <>
+                                <button
+                                    className="btn btn-outline-dark me-2 btn-login"
+                                    style={{ padding: "10px 20px" }}
+                                    onClick={handleClickLogin}
+                                >
+                                    Log in
+                                </button>
 
-                        <button className='btn-login' onClick={() => handleClickLogin()}>Log in</button>
-                        <button className='btn-signup' onClick={() => handleClickSignUp()}>Sign up</button>
-                        <NavDropdown title="Setting" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1" >Log in</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                Log out
-                            </NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Profile</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">
-                                Separated link
-                            </NavDropdown.Item>
-                        </NavDropdown>
+                                <button
+                                    className="btn btn-dark btn-signup"
+                                    onClick={handleClickSignUp}
+                                >
+                                    Sign up
+                                </button>
+
+                            </>
+                            :
+                            <NavDropdown title="Setting" id="basic-nav-dropdown">
+                                <NavDropdown.Item href="#action/3.1" >Log in</NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.2">
+                                    Log out
+                                </NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.3">Profile</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="#action/3.4">
+                                    Separated link
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Container>
 
-        </Navbar>
+        </Navbar >
     );
 }
 

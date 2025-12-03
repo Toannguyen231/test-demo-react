@@ -4,12 +4,12 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Login.scss";
 import { FcGoogle } from "react-icons/fc";
-import { SiMicrosoft } from "react-icons/si";
 import { postLogin } from '../../sevices/apiService';
 import { TbBrandGoogle, TbBrandWindows } from "react-icons/tb";
-
+import { useDispatch } from 'react-redux';
 function Login() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -37,10 +37,16 @@ function Login() {
         try {
             // Call API
             let res = await postLogin(email, password);
+            console.log("API response: ", res.data);
 
             if (res && res.data && res.data.EC === 0) {
+                console.log("Dispatching user data: ", res.data.DT);
+                dispatch({
+                    type: 'FETCH_USER_LOGIN_SUCCESS',
+                    payload: res.data.DT
+                })
                 toast.success("login successful");
-                navigate('/admin');
+                navigate('/');
             } else {
                 // Trường hợp API trả 2xx nhưng EC != 0
                 toast.error(res?.data?.EM || "login failed");
@@ -69,7 +75,7 @@ function Login() {
     };
 
     const handleNavigateSignUp = () => {
-        navigate('/signup/register');
+        navigate('/signup');
     };
 
     const handleSSOLogin = () => {

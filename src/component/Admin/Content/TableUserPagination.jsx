@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import ReactPaginate from 'react-paginate';
 
@@ -12,6 +12,7 @@ const TableUserPagination = (props) => {
         setCurrentPage(event.selected + 1);
 
     };
+
     return (
         <div>
             <table className="table table-hover table-bordered">
