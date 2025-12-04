@@ -14,7 +14,7 @@ import Login from './component/Admin/Auth/Login.jsx'
 import SignUp from './component/Admin/Auth/SignUp.jsx';
 import { Provider } from 'react-redux';
 import store from './component/actions/store.jsx';
-
+import 'nprogress/nprogress.css'
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>

@@ -7,12 +7,13 @@ import { FcGoogle } from "react-icons/fc";
 import { postLogin } from '../../sevices/apiService';
 import { TbBrandGoogle, TbBrandWindows } from "react-icons/tb";
 import { useDispatch } from 'react-redux';
+import { ImSpinner6 } from "react-icons/im";
 function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+    const [isLoading, setIsLoading] = useState(false);
     const validateEmail = (email) => {
         return String(email)
             .toLowerCase()
@@ -36,6 +37,7 @@ function Login() {
 
         try {
             // Call API
+            setIsLoading(true);
             let res = await postLogin(email, password);
             console.log("API response: ", res.data);
 
@@ -45,6 +47,7 @@ function Login() {
                     type: 'FETCH_USER_LOGIN_SUCCESS',
                     payload: res.data.DT
                 })
+                setIsLoading(false);
                 toast.success("login successful");
                 navigate('/');
             } else {
@@ -55,7 +58,7 @@ function Login() {
             console.log("check res Login: ", res);
         } catch (err) {
             console.log("Login error: ", err);
-
+            setIsLoading(false);
             // Axios error → đọc message từ server nếu có
             const msg =
                 err?.response?.data?.EM ||           // nếu backend trả EM
@@ -143,8 +146,9 @@ function Login() {
                                 />
                             </div>
 
-                            <button className="btn-email" onClick={handleSubmitLogin}>
-                                Continue with email
+                            <button className="btn-email" onClick={handleSubmitLogin} disabled={isLoading}>
+                                {(isLoading == true) ? <ImSpinner6 className="loaderIcon" /> : null}
+                                <span>Continue with emails</span>
                             </button>
 
                             <button className="btn-sso" onClick={handleSSOLogin}>

@@ -184,6 +184,28 @@
                         font-weight: 600;
                         cursor: pointer;
                         transition: all 0.2s ease;
+                        text-align: center;
+
+                        .loaderIcon {
+                            animation: spin 2s linear infinite;
+                            margin-right: 5px;
+                        }
+
+                        @keyframes spin {
+                            0% {
+                                transform: rotate(0deg);
+                            }
+
+                            100% {
+                                transform: rotate(360deg);
+                            }
+                        }
+
+                        &:disabled {
+                            background-color: #dddddd !important;
+                            color: #afafaf !important;
+                            cursor: no-drop;
+                        }
 
                         &:hover {
                             background-color: #000;

@@ -49,15 +49,10 @@ const Header = () => {
                             </>
                             :
                             <NavDropdown title="Setting" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="#action/3.1" >Log in</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.2">
                                     Log out
                                 </NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.3">Profile</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.4">
-                                    Separated link
-                                </NavDropdown.Item>
                             </NavDropdown>
                         }
                     </Nav>
