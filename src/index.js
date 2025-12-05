@@ -13,28 +13,30 @@ import DashBoard from './component/Admin/Content/DashBoard.jsx'
 import Login from './component/Admin/Auth/Login.jsx'
 import SignUp from './component/Admin/Auth/SignUp.jsx';
 import { Provider } from 'react-redux';
-import store from './component/actions/store.jsx';
+import { store, persistor } from './component/actions/store.jsx';
 import 'nprogress/nprogress.css'
+import { PersistGate } from 'redux-persist/integration/react'
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />} >
-            <Route index element={<Home />} />
-            <Route path="user" element={<User />} />
+    <PersistGate loading={null} persistor={persistor}>
+      <React.StrictMode>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<App />} >
+              <Route index element={<Home />} />
+              <Route path="user" element={<User />} />
+            </Route>
+            <Route path="admin" element={<Admin />} >
+              <Route index element={<DashBoard />} />
+              <Route path='manageruser' element={<ManagerUser />} />
+            </Route>
+            <Route path='login' element={<Login />} />
+            <Route path='signup' element={<SignUp />} />
+          </Routes>
+        </BrowserRouter>
+      </React.StrictMode>,
+    </PersistGate>
 
-          </Route>
-          <Route path="admin" element={<Admin />} >
-            <Route index element={<DashBoard />} />
-            <Route path='manageruser' element={<ManagerUser />} />
-          </Route>
-          <Route path='login' element={<Login />} />
-          <Route path='signup' element={<SignUp />} />
-        </Routes>
-
-      </BrowserRouter>
-    </React.StrictMode>,
 
   </Provider>,
   document.getElementById('root')

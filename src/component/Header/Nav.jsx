@@ -4,9 +4,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 const Header = () => {
+    const dispatch = useDispatch();
     const account = useSelector(state => state.user.account);
-    const isAnthenticated = useSelector(state => state.user.isAnthenticated);
+    const isAuthenticated = useSelector(state => state.user.isAuthenticated);
     const navigate = useNavigate();
     const handleClickSignUp = () => {
         navigate('/signup');
@@ -15,6 +17,11 @@ const Header = () => {
         navigate('/login');
     }
 
+    const handleClickLogOut = () => {
+        dispatch({
+            type: 'FETCH_USER_LOGOUT_FAIL',
+        })
+    }
 
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
@@ -29,7 +36,7 @@ const Header = () => {
                         <NavLink to="/admin" className='nav-link'>Admin</NavLink>
                     </Nav>
                     <Nav>
-                        {isAnthenticated === false ?
+                        {isAuthenticated === false ?
                             <>
                                 <button
                                     className="btn btn-outline-dark me-2 btn-login"
@@ -49,7 +56,7 @@ const Header = () => {
                             </>
                             :
                             <NavDropdown title="Setting" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="#action/3.2">
+                                <NavDropdown.Item href="#action/3.2" onClick={() => handleClickLogOut()}>
                                     Log out
                                 </NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.3">Profile</NavDropdown.Item>
