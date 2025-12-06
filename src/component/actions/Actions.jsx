@@ -22,8 +22,9 @@ export const fetchUserLoginSuccess = (userData) => {
     };
 }
 
-export const fetchUserLoginFail = () => {
+export const fetchUserLoginFail = (userData) => {
     return {
         type: FETCH_USER_LOGIN_FAIL,
+        payload: userData,
     };
 }

@@ -5,6 +5,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { postLogin } from '../sevices/apiService';
 const Header = () => {
     const dispatch = useDispatch();
     const account = useSelector(state => state.user.account);
@@ -17,9 +18,10 @@ const Header = () => {
         navigate('/login');
     }
 
-    const handleClickLogOut = () => {
+    const handleClickLogOut = async () => {
         dispatch({
             type: 'FETCH_USER_LOGOUT_FAIL',
+            payload: {}
         })
     }
 

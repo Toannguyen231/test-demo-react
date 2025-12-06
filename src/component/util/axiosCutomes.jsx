@@ -2,7 +2,7 @@
 import axios from 'axios';
 import NProgress from 'nprogress'; // Thư viện thanh tiến trình
 import 'nprogress/nprogress.css'; // Style của NProgress
-
+import { store, persistor } from '../actions/store';
 // Tạo một instance Axios với cấu hình cơ bản
 const instance = axios.create({
     baseURL: 'http://localhost:8081/', // URL cơ sở của API
@@ -12,14 +12,23 @@ const instance = axios.create({
 // Thêm request interceptor để hiển thị thanh tiến trình khi gửi yêu cầu
 instance.interceptors.request.use(
     function (config) {
-        NProgress.start();  // Bắt đầu thanh tiến trình
+        const state = store.getState();
+        console.log("STATE IN AXIOS >>>", state);
+        const access_token = state?.user?.account?.access_token;
+        console.log("AXIOS TOKEN >>>", access_token);
+
+        if (access_token) {
+            config.headers.Authorization = `Bearer ${access_token}`;
+        }
+        NProgress.start();
         return config;
     },
     function (error) {
-        NProgress.done();  // Kết thúc thanh tiến trình nếu có lỗi
+        NProgress.done();
         return Promise.reject(error);
     }
 );
+
 
 
 NProgress.configure({
