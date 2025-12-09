@@ -53,7 +53,6 @@ function Login() {
             console.log("API response: ", res.data);
 
             if (res && res.data && res.data.EC === 0) {
-                console.log("Dispatching user data: ", res.data);
 
                 // 👉 payload = res.data.DT (bên trong có access_token, refresh_token,...)
                 dispatch({

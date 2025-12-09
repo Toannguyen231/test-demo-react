@@ -1,8 +1,9 @@
 import videoHomepage from '../../accets/video-homepage.mp4';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 const Home = () => {
-    const account = useSelector(state => state.user.account);
     const isAnthenticated = useSelector(state => state.user.isAnthenticated);
+    const navigate = useNavigate();
     return (
         <div className="homepage-container">
             <video autoPlay muted loop>
@@ -11,9 +12,15 @@ const Home = () => {
             <div className='content-homepage'>
                 <h1 className='tittle'>There's a better way to ask</h1>
                 <p className='pharagrap'>You don't want to make a boring from. And your audience wont't answer one. Create a typeform instead - and make everyone happy</p>
-                <button className='btn-getstarted'>Get started - it's free</button>
+
+                {isAnthenticated === false ?
+                    <button className='btn-getstarted' onClick={() => { navigate('/login') }}>Get started - it's free</button>
+                    :
+                    <button className='btn-getstarted' onClick={() => { navigate('/user') }}>Doing quiz now !</button>
+                }
+
             </div>
-        </div>
+        </div >
 
     );
 }

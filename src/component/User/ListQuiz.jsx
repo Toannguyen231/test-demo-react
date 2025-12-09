@@ -1,11 +1,9 @@
-import { get } from "lodash";
 import { useEffect, useState } from "react";
 import { getQuzizeByPage } from '../sevices/apiService';
-
+import { toast } from "react-toastify";
+import './ListQuiz.scss';
 const ListQuiz = () => {
-    const [ArrayQuiz, setArrayQuiz] = useState([]);
-
-
+    const [arrayQuiz, setArrayQuiz] = useState([]);
 
     useEffect(() => {
         getQuizData();
@@ -14,19 +12,33 @@ const ListQuiz = () => {
 
     const getQuizData = async () => {
         let res = await getQuzizeByPage();
-        console.log("Check res quiz: ", res);
+        console.log("check Respronse:", res)
+        if (res && res.data && res.data.DT) {
+            setArrayQuiz(res.data.DT);
+        }
+        else {
+            toast.error('Không có dữ liệu hoặc mã EC không phải 0');
+        }
     }
     return (
-        <>
-            <div className="card" style={{ width: "18rem" }}>
-                <img src="..." className="card-img-top" alt="..." />
-                <div className="card-body">
-                    <h5 className="card-title">Card title</h5>
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </>
+        <div className='list-quiz-container container'>
+            {arrayQuiz && arrayQuiz.length > 0 &&
+                arrayQuiz.map((quiz, index) => (
+                    <div className="card" style={{ width: "18rem" }} key={`${index}-quiz`}>
+                        <img src={`data:image/png;base64,${quiz.image}`} className="card-img-top" alt="..." />
+                        <div className="card-body">
+                            <h5 className="card-title">Quiz {index + 1}</h5> {/* Dùng dữ liệu từ quiz */}
+                            <p className="card-text">{quiz.description}</p> {/* Dùng dữ liệu từ quiz */}
+                            <a href="#" className="btn btn-primary">Start Now</a>
+                        </div>
+                    </div>
+                ))
+            }
+
+            {arrayQuiz && arrayQuiz.length === 0 &&
+                <div>Không có quiz nào để hiển thị</div>
+            }
+        </div>
     );
 }
 
