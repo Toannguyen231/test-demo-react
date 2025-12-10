@@ -1,39 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Admin from './component/Admin/Admin.jsx'
-import User from './component/User/User.jsx';
-import Home from './component/Home/Home.jsx';
-import ManagerUser from './component/Admin/Content/ManagerUser.jsx';
-import DashBoard from './component/Admin/Content/DashBoard.jsx'
-import Login from './component/Admin/Auth/Login.jsx'
-import SignUp from './component/Admin/Auth/SignUp.jsx';
 import { Provider } from 'react-redux';
 import { store, persistor } from './component/actions/store.jsx';
 import 'nprogress/nprogress.css'
 import { PersistGate } from 'redux-persist/integration/react'
-import ListQuiz from './component/User/ListQuiz.jsx';
+
+import Layout from './Layout.js';
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <React.StrictMode>
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<App />} >
-              <Route index element={<Home />} />
-              <Route path="user" element={<ListQuiz />} />
-            </Route>
-            <Route path="admin" element={<Admin />} >
-              <Route index element={<DashBoard />} />
-              <Route path='manageruser' element={<ManagerUser />} />
-            </Route>
-            <Route path='login' element={<Login />} />
-            <Route path='signup' element={<SignUp />} />
-          </Routes>
+          <Layout />
         </BrowserRouter>
       </React.StrictMode>,
     </PersistGate>

@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { getQuzizeByPage } from '../sevices/apiService';
 import { toast } from "react-toastify";
 import './ListQuiz.scss';
+import { useNavigate } from "react-router-dom";
+
 const ListQuiz = () => {
     const [arrayQuiz, setArrayQuiz] = useState([]);
-
+    const navigate = useNavigate();
     useEffect(() => {
         getQuizData();
     }, []);
@@ -27,9 +29,9 @@ const ListQuiz = () => {
                     <div className="card" style={{ width: "18rem" }} key={`${index}-quiz`}>
                         <img src={`data:image/png;base64,${quiz.image}`} className="card-img-top" alt="..." />
                         <div className="card-body">
-                            <h5 className="card-title">Quiz {index + 1}</h5> {/* Dùng dữ liệu từ quiz */}
-                            <p className="card-text">{quiz.description}</p> {/* Dùng dữ liệu từ quiz */}
-                            <a href="#" className="btn btn-primary">Start Now</a>
+                            <h5 className="card-title">Quiz {index + 1}</h5>
+                            <p className="card-text">{quiz.description}</p>
+                            <a href="#" className="btn btn-primary" onClick={() => navigate(`/quiz/${quiz.id}`)}>Start Now</a>
                         </div>
                     </div>
                 ))

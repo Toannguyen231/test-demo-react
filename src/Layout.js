@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Admin from './component/Admin/Admin.jsx'
@@ -12,38 +11,35 @@ import ManagerUser from './component/Admin/Content/ManagerUser.jsx';
 import DashBoard from './component/Admin/Content/DashBoard.jsx'
 import Login from './component/Admin/Auth/Login.jsx'
 import SignUp from './component/Admin/Auth/SignUp.jsx';
-import { Provider } from 'react-redux';
-import { store, persistor } from './component/actions/store.jsx';
 import 'nprogress/nprogress.css'
-import { PersistGate } from 'redux-persist/integration/react'
-ReactDOM.render(
-    <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-            <React.StrictMode>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={<App />} >
-                            <Route index element={<Home />} />
-                            <Route path="user" element={<User />} />
-                        </Route>
-                        <Route path="admin" element={<Admin />} >
-                            <Route index element={<DashBoard />} />
-                            <Route path='manageruser' element={<ManagerUser />} />
-                        </Route>
-                        <Route path='login' element={<Login />} />
-                        <Route path='signup' element={<SignUp />} />
-                    </Routes>
-                </BrowserRouter>
-            </React.StrictMode>,
-        </PersistGate>
+import ListQuiz from './component/User/ListQuiz';
+import Detail from './component/User/DetailQuiz';
 
+const NotFound = () => {
+    return (
+        <div className="container mt-3 alert alert-danger">
+            404. NotFound
+        </div>
+    );
+}
 
-    </Provider>,
-    document.getElementById('root')
+const Layout = () => {
+    return (
+        <Routes>
+            <Route path="/" element={<App />} >
+                <Route index element={<Home />} />
+                <Route path="user" element={<ListQuiz />} />
+            </Route>
+            <Route path="/quiz/:id" element={<Detail />} />
+            <Route path="admin" element={<Admin />} >
+                <Route index element={<DashBoard />} />
+                <Route path='manageruser' element={<ManagerUser />} />
+            </Route>
+            <Route path='login' element={<Login />} />
+            <Route path='signup' element={<SignUp />} />
+            <Route path='*' element={<NotFound />} />
+        </Routes>
+    );
+}
 
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+export default Layout;
