@@ -60,4 +60,5 @@ const getQuzizeByPage = () => {
 const getQuizDatailById = (id) => {
     return instance.get(`http://localhost:8081/api/v1/quiz/${id}`);
 }
+
 export { postCreateUser, getAllUsers, putUpdateUser, deleteUser, getPageUserWithPage, postCreateSignUp, postLogin, getQuzizeByPage, getQuizDatailById };

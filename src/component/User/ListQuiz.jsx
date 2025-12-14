@@ -27,7 +27,9 @@ const ListQuiz = () => {
             {arrayQuiz && arrayQuiz.length > 0 &&
                 arrayQuiz.map((quiz, index) => (
                     <div className="card" style={{ width: "18rem" }} key={`${index}-quiz`}>
-                        <img src={`data:image/png;base64,${quiz.image}`} className="card-img-top" alt="..." />
+                        <div className="container-img">
+                            <img src={`data:image/png;base64,${quiz.image}`} className="card-img-top" alt="..." />
+                        </div>
                         <div className="card-body">
                             <h5 className="card-title">Quiz {index + 1}</h5>
                             <p className="card-text">{quiz.description}</p>
