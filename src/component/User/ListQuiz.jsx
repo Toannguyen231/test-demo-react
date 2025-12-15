@@ -3,7 +3,7 @@ import { getQuzizeByPage } from '../sevices/apiService';
 import { toast } from "react-toastify";
 import './ListQuiz.scss';
 import { useNavigate } from "react-router-dom";
-
+import DetailQuiz from "./DetailQuiz";
 const ListQuiz = () => {
     const [arrayQuiz, setArrayQuiz] = useState([]);
     const navigate = useNavigate();
@@ -33,7 +33,9 @@ const ListQuiz = () => {
                         <div className="card-body">
                             <h5 className="card-title">Quiz {index + 1}</h5>
                             <p className="card-text">{quiz.description}</p>
-                            <a href="#" className="btn btn-primary" onClick={() => navigate(`/quiz/${quiz.id}`)}>Start Now</a>
+                            <a href="#" className="btn btn-primary" onClick={() => navigate(`/quiz/${quiz.id}`, { state: { quizTittle: quiz.description } })}>
+                                Start Now
+                            </a>
                         </div>
                     </div>
                 ))
