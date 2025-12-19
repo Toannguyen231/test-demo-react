@@ -33,7 +33,7 @@ const ListQuiz = () => {
                         <div className="card-body">
                             <h5 className="card-title">Quiz {index + 1}</h5>
                             <p className="card-text">{quiz.description}</p>
-                            <a href="#" className="btn btn-primary" onClick={() => navigate(`/quiz/${quiz.id}`, { state: { quizTittle: quiz.description } })}>
+                            <a href="" className="btn btn-primary" onClick={() => navigate(`/quiz/${quiz.id}`, { state: { quizTittle: quiz.description } })}>
                                 Start Now
                             </a>
                         </div>
