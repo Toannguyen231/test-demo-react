@@ -2,7 +2,10 @@
     .question-img {
         display: block;
         margin-bottom: 30px;
-        max-width: 100%;
+        max-width: 300px;
         height: auto;
+        height: 200px;
+        /* hoặc theo khung bạn muốn */
+        object-fit: cover;
     }
 }

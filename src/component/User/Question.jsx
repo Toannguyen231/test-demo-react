@@ -27,9 +27,14 @@ const Question = ({ data, index }) => {
             </div>
 
             <div className="answer">
-                {answers.map((a, idx) => (
-                    <div key={a.id || idx} className="answer-child">
-                        {String.fromCharCode(65 + idx)}. {a.description}
+                {answers.map((a, index) => (
+                    <div key={a.id || index} className="answer-child">
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" value="" id={`flexCheckChecked-${index}`} />
+                            <label className="form-check-label" htmlFor={`flexCheckChecked-${index}`}>
+                                {String.fromCharCode(65 + index)}. {a.description}
+                            </label>
+                        </div>
                     </div>
                 ))}
             </div>

@@ -24,6 +24,12 @@
             gap: 10px;
             justify-content: center;
         }
+
+        .footer .is-disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
     }
 
     .right-content {

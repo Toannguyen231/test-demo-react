@@ -38,6 +38,15 @@ const Detail = (props) => {
         }
     };
 
+    const handlePrev = () => {
+        if (index <= 0) return;
+        setIndex(index - 1);
+    };
+    const handleNext = () => {
+        if (index < dataQuiz.length - 1) {
+            setIndex(index + 1);
+        }
+    };
     console.log('>>> Check params id: ', params.id);
     console.log("check dataQuiz", dataQuiz);
     return (
@@ -58,8 +67,8 @@ const Detail = (props) => {
                     />
                 </div>
                 <div className="footer">
-                    <button className="btn btn-fsecondary">Prev</button>
-                    <button className="btn btn-primary">Next</button>
+                    <button className="btn btn-secondary" onClick={() => handlePrev()} disabled={index <= 0}>Prev</button>
+                    <button className="btn btn-primary" onClick={() => handleNext()} disabled={index >= dataQuiz.length - 1}>Next</button>
                 </div>
             </div>
 
