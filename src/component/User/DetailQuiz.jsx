@@ -69,6 +69,7 @@ const Detail = (props) => {
                 <div className="footer">
                     <button className="btn btn-secondary" onClick={() => handlePrev()} disabled={index <= 0}>Prev</button>
                     <button className="btn btn-primary" onClick={() => handleNext()} disabled={index >= dataQuiz.length - 1}>Next</button>
+                    <button className="btn btn-warning">Finish</button>
                 </div>
             </div>
 

@@ -5,7 +5,9 @@
 
     .left-content {
         width: 70%;
-        border: 1px solid red;
+        border: 2px solid rgb(205, 172, 172);
+        padding: 20px;
+        border-radius: 10px;
 
         .tittle {
             font-size: 30px;
@@ -34,6 +36,7 @@
 
     .right-content {
         width: 30%;
-        border: 1px solid red;
+        border: 2px solid rgb(205, 172, 172);
+        border-radius: 10px;
     }
 }
