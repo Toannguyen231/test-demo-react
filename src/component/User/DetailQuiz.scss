@@ -5,9 +5,11 @@
 
     .left-content {
         width: 70%;
+        /* Cố định chiều rộng để không bị co giãn theo nội dung */
         border: 2px solid rgb(205, 172, 172);
         padding: 20px;
         border-radius: 10px;
+        height: 700px;
 
         .tittle {
             font-size: 30px;

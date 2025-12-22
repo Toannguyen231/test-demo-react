@@ -12,6 +12,7 @@ const Detail = (props) => {
 
     const [dataQuiz, setDataQuiz] = useState([]);
     const [index, setIndex] = useState(0);
+    const [selectedAnswers, setSelectedAnswers] = useState({});
 
     useEffect(() => {
         fetchQuizDetails(quizId);
@@ -29,10 +30,20 @@ const Detail = (props) => {
                 .groupBy("id")
                 // `key` is group's name (color), `value` is the array of objects
                 .map((value, key) => {
-                    console.log("value: ", value, "key: ", key)
-                    return { QuestionId: key, data: value }
+                    let answers = [];
+                    let questionDescription = "";
+                    let image = null;
+                    value.forEach((item, idx) => {
+                        if (idx === 0) {
+                            questionDescription = item.description;
+                            image = item.image;
+                        }
+                        item.answers.isSelected = false;
+                        answers.push(item.answers);
+                    })
+                    return { questionId: key, answers, questionDescription, image };
                 })
-                .value()
+                .value();
             // Cập nhật dữ liệu đã xử lý vào state
             setDataQuiz(data);
         }
@@ -42,11 +53,42 @@ const Detail = (props) => {
         if (index <= 0) return;
         setIndex(index - 1);
     };
+
+    // const handleCheckBox = (aId, qId) => {
+    //     setSelectedAnswers(prev => {
+    //         const questionAnswers = prev[qId] || [];
+    //         if (questionAnswers.includes(aId)) {
+    //             return { ...prev, [qId]: questionAnswers.filter(id => id !== aId) };
+    //         } else {
+    //             return { ...prev, [qId]: [...questionAnswers, aId] };
+    //         }
+    //     });
+    // };
+
     const handleNext = () => {
-        if (index < dataQuiz.length - 1) {
-            setIndex(index + 1);
+        if (index >= dataQuiz.length - 1) return;
+        setIndex(index + 1);
+    }
+
+    const handleCheckBox = (answerId, questionId) => {
+        let dataQuizClone = _.cloneDeep(dataQuiz);
+        let question = dataQuizClone.find(item => +item.questionId === +questionId);
+        if (question && question.answers) {
+            let b = question.answers.map(item => {
+                if (+item.id === +answerId) {
+                    item.isSelected = !item.isSelected;
+                }
+                return item;
+            })
+            // console.log('>>> check b: ', b);
+            question.answers = b;
         }
-    };
+        let index = dataQuizClone.findIndex(item => +item.questionId === +questionId);
+        if (index > -1) {
+            dataQuizClone[index] = question;
+            setDataQuiz(dataQuizClone);
+        }
+    }
     console.log('>>> Check params id: ', params.id);
     console.log("check dataQuiz", dataQuiz);
     return (
@@ -56,13 +98,10 @@ const Detail = (props) => {
                     Quiz {quizId}: {location?.state?.quizTittle}
                 </div>
                 <hr />
-                <div className="quiz-body">
-                    {/* Hiển thị hình ảnh từ dữ liệu */}
-                    {dataQuiz[0]?.image && <img src={dataQuiz[0]?.image} alt="Quiz Image" />}
-                </div>
                 <div className="quiz-content">
                     <Question
                         index={index}
+                        handleCheckBox={handleCheckBox}
                         data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : {}}
                     />
                 </div>

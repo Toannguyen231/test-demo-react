@@ -5,14 +5,17 @@
 
     /* xếp theo cột => xuống dòng */
     /* cho phép xuống dòng */
-    .question-img {
+    .q-Image {
         display: flex;
         margin-bottom: 30px;
         max-width: 300px;
         height: auto;
         height: 200px;
-        /* hoặc theo khung bạn muốn */
-        object-fit: cover;
+
+        .question-img {
+            /* hoặc theo khung bạn muốn */
+            object-fit: cover;
+        }
     }
 }
 
