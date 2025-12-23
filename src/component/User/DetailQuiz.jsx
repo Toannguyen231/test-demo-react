@@ -20,11 +20,9 @@ const Detail = (props) => {
 
     const fetchQuizDetails = async () => {
         let res = await getQuestionsByQuizId(quizId);
-        console.log("Quiz Details:", res);
 
         if (res && res.data && res.data.DT) {
             let raw = res.data.DT;
-            console.log("Check raw:", raw)
             let data = _.chain(raw)
                 // Group the elements of Array based on `color` property
                 .groupBy("id")
@@ -89,8 +87,67 @@ const Detail = (props) => {
             setDataQuiz(dataQuizClone);
         }
     }
-    console.log('>>> Check params id: ', params.id);
-    console.log("check dataQuiz", dataQuiz);
+
+    const handleFinsh = () => {
+        //     {
+        // "DT": {
+        //     "quizData": [
+        //         {
+        //             "questionId": 1,
+        //             "isCorrect": true,
+        //             "userAnswers": [
+        //                 3
+        //             ],
+        //             "systemAnswers": [
+        //                 {
+        //                     "id": 3,
+        //                     "description": "Đếu care...",
+        //                     "correct_answer": true
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             "questionId": 2,
+        //             "isCorrect": false,
+        //             "userAnswers": [
+        //                 6
+        //             ],
+        //             "systemAnswers": [
+        //                 {
+        //                     "id": 4,
+        //                     "description": "Là tôi",
+        //                     "correct_answer": true
+        //                 }
+        //             ]
+        //         }
+        //     ],
+        //     "countCorrect": 1,
+        //     "countTotal": 4
+        // },
+        let payload = {
+            quizId: +quizId,
+            answers: []
+        }
+        let answers = [];
+        if (dataQuiz && dataQuiz.length > 0) {
+            dataQuiz.forEach(item => {
+
+                let questionId = item.questionId;
+                let userAnsewer = [];
+                item.answers.forEach(item => {
+                    if (item.isSelected === true) {
+                        userAnsewer.push(item.id)
+                    }
+                })
+                answers.push({
+                    questionId: +questionId,
+                    userAnsewer: userAnsewer
+                })
+            })
+            payload.answers = answers;
+        }
+        console.log("check finish: ", payload);
+    }
     return (
         <div className="detail-quiz-container">
             <div className="left-content">
@@ -108,7 +165,7 @@ const Detail = (props) => {
                 <div className="footer">
                     <button className="btn btn-secondary" onClick={() => handlePrev()} disabled={index <= 0}>Prev</button>
                     <button className="btn btn-primary" onClick={() => handleNext()} disabled={index >= dataQuiz.length - 1}>Next</button>
-                    <button className="btn btn-warning">Finish</button>
+                    <button className="btn btn-warning" onClick={handleFinsh}>Finish</button>
                 </div>
             </div>
 

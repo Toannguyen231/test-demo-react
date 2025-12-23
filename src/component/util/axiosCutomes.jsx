@@ -13,9 +13,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
     function (config) {
         const state = store.getState();
-        console.log("STATE IN AXIOS >>>", state);
         const access_token = state?.user?.account?.access_token;
-        console.log("AXIOS TOKEN >>>", access_token);
 
         if (access_token) {
             config.headers.Authorization = `Bearer ${access_token}`;

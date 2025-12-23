@@ -9,7 +9,7 @@
         border: 2px solid rgb(205, 172, 172);
         padding: 20px;
         border-radius: 10px;
-        height: 700px;
+        height: 530px;
 
         .tittle {
             font-size: 30px;
@@ -17,9 +17,14 @@
         }
 
         .quiz-content {
+
             .question {
                 font-size: 20px;
                 font-weight: 600;
+            }
+
+            .answer {
+                height: 115px;
             }
         }
 
