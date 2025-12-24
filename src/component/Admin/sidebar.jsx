@@ -16,10 +16,11 @@ import {
     FaGithub,
 } from 'react-icons/fa';
 import { GiAllSeeingEye } from "react-icons/gi";
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 
 const SideBar = ({ image = true, collapsed, rtl, toggled, handleToggleSidebar }) => {
+    const navigate = useNavigate();
     return (
         <>
             <ProSidebar
@@ -44,7 +45,9 @@ const SideBar = ({ image = true, collapsed, rtl, toggled, handleToggleSidebar })
                     >
                         <div>
                             <GiAllSeeingEye size="3rem" style={{ marginRight: '3px' }} />
-                            <span>Ngoc Toan</span>
+                            <span onClick={() => navigate("/")}>
+                                Ngoc Toan
+                            </span>
                         </div>
 
                     </div>
@@ -69,7 +72,10 @@ const SideBar = ({ image = true, collapsed, rtl, toggled, handleToggleSidebar })
                                 Quản lý User
                                 <Link to="/admin/manageruser" />
                             </MenuItem>
-                            <MenuItem>Quản lý bài Quiz</MenuItem>
+                            <MenuItem>
+                                Quản lý bài Quiz
+                                <Link to="/admin/manageQuiz"></Link>
+                            </MenuItem>
                             <MenuItem>Quản lý câu hỏi</MenuItem>
                         </SubMenu>
                     </Menu>
