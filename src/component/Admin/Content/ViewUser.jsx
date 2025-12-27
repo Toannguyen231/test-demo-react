@@ -112,7 +112,7 @@ function ViewUser(props) {
                 className='modal-add-user'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Update a use</Modal.Title>
+                    <Modal.Title>View a use</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
@@ -164,9 +164,6 @@ function ViewUser(props) {
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
-                    </Button>
-                    <Button variant="primary" onClick={handleSubmitCreateUser}>
-                        Save
                     </Button>
                 </Modal.Footer>
             </Modal>
