@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store, persistor } from './component/actions/store.jsx';
-import 'nprogress/nprogress.css'
 import { PersistGate } from 'redux-persist/integration/react'
-
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'nprogress/nprogress.css'
 import Layout from './Layout.js';
 ReactDOM.render(
   <Provider store={store}>
