@@ -32,8 +32,7 @@ instance.interceptors.request.use(
 NProgress.configure({
     showSpinner: false, // Ẩn biểu tượng spinner
     trickleSpeed: 100, // Tốc độ di chuyển của thanh tiến trình
-}
-)
+});
 // Thêm response interceptor để dừng thanh tiến trình khi nhận được phản hồi
 instance.interceptors.response.use(
     function (response) {

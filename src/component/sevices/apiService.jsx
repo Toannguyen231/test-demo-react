@@ -66,8 +66,23 @@ const postSubmitQuiz = (data) => {
 }
 
 const getAllQuizForAdmin = () => {
-    return instance.get(`http://localhost:8081/api/v1/quiz/all`);
+    return instance.get(`/api/v1/quiz/all`);
 }
 
+const postCreateQuiz = (description, name, difficulty, image) => {
+    const formData = new FormData();
+    formData.append('description', description);
+    formData.append('name', name);
+    formData.append('difficulty', difficulty);
+    formData.append('quizImage', image);
 
-export { postCreateUser, getAllUsers, putUpdateUser, deleteUser, getPageUserWithPage, postCreateSignUp, postLogin, getQuzizeByPage, getQuestionsByQuizId, postSubmitQuiz, getAllQuizForAdmin };
+    return instance.post('/api/v1/quiz', formData);
+}
+
+export {
+    postCreateUser, getAllUsers,
+    putUpdateUser, deleteUser, getPageUserWithPage,
+    postCreateSignUp, postLogin, getQuzizeByPage,
+    getQuestionsByQuizId, postSubmitQuiz,
+    getAllQuizForAdmin, postCreateQuiz
+};

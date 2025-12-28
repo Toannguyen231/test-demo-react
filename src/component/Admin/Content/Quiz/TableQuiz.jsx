@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 
 
 const TableQuiz = (props) => {
-    const { handleShowViewQuiz, listQuiz, setListQuiz } = props;
+
+    const { handleShowViewQuiz, listQuiz, setListQuiz, handleShowUpdateQuiz } = props;
 
     return (
         <table className="table table-hover table-bordered mt-3">
@@ -26,7 +27,7 @@ const TableQuiz = (props) => {
                                 <td>{item.difficulty}</td>
                                 <td>
                                     <button className="btn btn-secondary" onClick={() => handleShowViewQuiz(item)}>View</button>
-                                    <button className="btn btn-warning mx-3">Update</button>
+                                    <button className="btn btn-warning mx-3" onClick={() => handleShowUpdateQuiz(item)}>Update</button>
                                     <button className="btn btn-danger">Delete</button>
                                 </td>
                             </tr>

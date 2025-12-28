@@ -1,10 +1,11 @@
 import '../Quiz/ManageQuiz.scss'
 import Select from 'react-select';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import TableQuiz from './TableQuiz';
 import Accordion from 'react-bootstrap/Accordion';
 import ModalViewQuiz from './ModalViewQuiz';
-import { getAllQuizForAdmin } from '../../../sevices/apiService';
+import { getAllQuizForAdmin, postCreateQuiz } from '../../../sevices/apiService';
+import ModalUpdateQuiz from './ModalUpdateQuiz';
 const ManageQuiz = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -13,14 +14,17 @@ const ManageQuiz = () => {
     const [showModalViewQuiz, setShowModalViewQuiz] = useState(false);
     const [dataModal, setDataModal] = useState({});
     const [listQuiz, setListQuiz] = useState([]);
+    const [showModalUpdateQuiz, setShowModalUpdateQuiz] = useState(false);
+    const fileInputRef = useRef(null);
     const options = [
-        { value: 'EASY', label: 'Chocolate' },
-        { value: 'MEDIUM', label: 'Strawberry' },
-        { value: 'HARD', label: 'Vanilla' },
+        { value: 'EASY', label: 'EASY' },
+        { value: 'MEDIUM', label: 'MEDIUM' },
+        { value: 'HARD', label: 'HARD' },
     ];
-
     const hanleChangeFile = (event) => {
-
+        if (event.target && event.target.files && event.target.files[0]) {
+            setImage(event.target.files[0]);
+        }
     }
 
     useEffect(() => {
@@ -34,8 +38,33 @@ const ManageQuiz = () => {
         }
     }
 
+    const handleSubmitQuiz = async () => {
+        try {
+            let res = await postCreateQuiz(name, description, type, image);
+            console.log('>>> check res create quiz: ', res);
+            if (res && res.data.EC === 0) {
+                // success, maybe reset form or show message
+                setName('');
+                setDescription('');
+                setType('EASY');
+                setImage(null);
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = '';
+                }
+                fetchListQuiz(); // refresh list
+            }
+        } catch (error) {
+            console.error('Error creating quiz:', error);
+        }
+    }
+
     const handleShowViewQuiz = (quiz) => {
         setShowModalViewQuiz(true);
+        setDataModal(quiz);
+    }
+
+    const handleShowUpdateQuiz = (quiz) => {
+        setShowModalUpdateQuiz(true);
         setDataModal(quiz);
     }
 
@@ -59,8 +88,9 @@ const ManageQuiz = () => {
                                         placeholder="Your quiz name"
                                         value={name}
                                         onChange={(event) => { setName(event.target.value) }}
+                                        id="quizName"
                                     />
-                                    <label>Name</label>
+                                    <label htmlFor="quizName">Name</label>
                                 </div>
                                 <div className="form-floating">
                                     <input
@@ -69,14 +99,15 @@ const ManageQuiz = () => {
                                         placeholder="Description"
                                         value={description}
                                         onChange={(event) => { setDescription(event.target.value) }}
+                                        id="quizDescription"
                                     />
-                                    <label >Description</label>
+                                    <label htmlFor="quizDescription">Description</label>
                                 </div>
                                 <div className="more-actions">
                                     <div className="my-3">
                                         <Select
-                                            defaultValue={type}
-                                            // onChange={setSelectedOption}
+                                            value={options.find(option => option.value === type)}
+                                            onChange={(selectedOption) => setType(selectedOption.value)}
                                             options={options}
                                             placeholder="Quiz type..."
                                         />
@@ -86,9 +117,12 @@ const ManageQuiz = () => {
                                         type="file"
                                         className="form-control"
                                         onChange={(event) => { hanleChangeFile(event) }}
+                                        ref={fileInputRef}
                                     />
                                     <div className="quiz-save">
-                                        <button className="btn btn-warning mb-1 mt-3">
+                                        <button
+                                            onClick={() => handleSubmitQuiz()}
+                                            className="btn btn-warning mb-1 mt-3">
                                             Save
                                         </button>
                                     </div>
@@ -99,11 +133,12 @@ const ManageQuiz = () => {
                 </Accordion.Item>
             </Accordion>
 
-            <div clssName='list-details'>
+            <div className='list-details'>
                 <TableQuiz
                     listQuiz={listQuiz}
                     setListQuiz={setListQuiz}
                     handleShowViewQuiz={handleShowViewQuiz}
+                    handleShowUpdateQuiz={handleShowUpdateQuiz}
                 />
                 <div>
                     <ModalViewQuiz
@@ -111,6 +146,12 @@ const ManageQuiz = () => {
                         setShow={setShowModalViewQuiz}
                         dataModal={dataModal}
                         resetViewDataModal={resetDataModal}
+                    />
+                    <ModalUpdateQuiz
+                        show={showModalUpdateQuiz}
+                        setShow={setShowModalUpdateQuiz}
+                        dataModal={dataModal}
+                        resetUpdateDataModal={resetDataModal}
                     />
                 </div>
             </div>

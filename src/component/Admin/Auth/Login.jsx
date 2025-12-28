@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Login.scss";
@@ -14,13 +14,20 @@ import { FETCH_USER_LOGIN_SUCCESS } from '../../actions/Actions';
 function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const mountedRef = useRef(true);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
+    useEffect(() => {
+        return () => {
+            mountedRef.current = false;
+        };
+    }, []);
+
     // 🔍 DEBUG: xem token trong Redux
-    const accessToken = useSelector(state => state.user.account.access_token);
+    const accessToken = useSelector(state => state?.user?.account?.access_token);
     useEffect(() => {
         console.log("Redux access_token = ", accessToken);
     }, [accessToken]);
@@ -50,7 +57,6 @@ function Login() {
             setIsLoading(true);
 
             let res = await postLogin(email, password);
-            console.log("API response: ", res.data);
 
             if (res && res.data && res.data.EC === 0) {
 
@@ -63,20 +69,26 @@ function Login() {
                 toast.success("Login successful");
                 navigate('/');
             } else {
-                toast.error(res?.data?.EM || "Login failed");
+                if (mountedRef.current) {
+                    toast.error(res?.data?.EM || "Login failed");
+                }
             }
 
-            setIsLoading(false);
+            if (mountedRef.current) {
+                setIsLoading(false);
+            }
         } catch (err) {
             console.log("Login error: ", err);
-            setIsLoading(false);
+            if (mountedRef.current) {
+                setIsLoading(false);
 
-            const msg =
-                err?.response?.data?.EM ||
-                err?.response?.data?.message ||
-                "Login failed. Please check your email or password.";
+                const msg =
+                    err?.response?.data?.EM ||
+                    err?.response?.data?.message ||
+                    "Login failed. Please check your email or password.";
 
-            toast.error(msg);
+                toast.error(msg);
+            }
         }
     };
 
