@@ -141,7 +141,7 @@ function ViewUser(props) {
                                 <option value="ADMIN">ADMIN</option>
                             </select>
                         </div>
-                        <div className='col-md-12'>
+                        <div className='col-md-16'>
                             <label className="label-upload" htmlFor='upload-photo'>
                                 <FcPlus />
                                 Upload file image

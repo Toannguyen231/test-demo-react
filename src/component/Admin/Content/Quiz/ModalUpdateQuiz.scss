@@ -1,0 +1,20 @@
+.col-md-12 {
+    height: 200px;
+    display: flex;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    padding: 30px;
+
+    .img-preview {
+        max-width: 150px;
+        max-height: 150px;
+    }
+}
+
+.col-md-16 .label-upload:hover {
+    background-color: rgba(204, 204, 204, 0.8);
+    cursor: pointer;
+}

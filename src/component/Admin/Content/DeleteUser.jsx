@@ -36,7 +36,6 @@ const DeleteUser = (props) => {
     const hanleClickConfirm = async () => {
 
         let res = await deleteUser(dataDelete.id);
-        console.log('Response from delete user:', res);
 
         if (res && res.data && res.data.EC === 0) {
             toast.success(res.data.EM);

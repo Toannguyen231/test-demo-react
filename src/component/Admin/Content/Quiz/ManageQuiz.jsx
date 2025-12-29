@@ -3,18 +3,21 @@ import Select from 'react-select';
 import { useState, useEffect, useRef } from 'react';
 import TableQuiz from './TableQuiz';
 import Accordion from 'react-bootstrap/Accordion';
-import ModalViewQuiz from './ModalViewQuiz';
 import { getAllQuizForAdmin, postCreateQuiz } from '../../../sevices/apiService';
 import ModalUpdateQuiz from './ModalUpdateQuiz';
+import ModalViewQuiz from './ModalViewQuiz';
+import ModalDelete from './ModalDelete';
 const ManageQuiz = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [type, setType] = useState('EASY');
     const [image, setImage] = useState(null);
-    const [showModalViewQuiz, setShowModalViewQuiz] = useState(false);
     const [dataModal, setDataModal] = useState({});
     const [listQuiz, setListQuiz] = useState([]);
+    const [showModalViewQuiz, setShowModalViewQuiz] = useState(false);
     const [showModalUpdateQuiz, setShowModalUpdateQuiz] = useState(false);
+    const [showModalDeleteQuiz, setShowModalDeleteQuiz] = useState(false);
+    const [dataDelete, setDataDelete] = useState({});
     const fileInputRef = useRef(null);
     const options = [
         { value: 'EASY', label: 'EASY' },
@@ -64,8 +67,14 @@ const ManageQuiz = () => {
     }
 
     const handleShowUpdateQuiz = (quiz) => {
+        console.log("CLICK UPDATE quiz =", quiz);
         setShowModalUpdateQuiz(true);
         setDataModal(quiz);
+    }
+
+    const hanldeShowDeleteQuiz = (quiz) => {
+        setShowModalDeleteQuiz(true);
+        setDataDelete(quiz);
     }
 
     const resetDataModal = () => {
@@ -139,6 +148,7 @@ const ManageQuiz = () => {
                     setListQuiz={setListQuiz}
                     handleShowViewQuiz={handleShowViewQuiz}
                     handleShowUpdateQuiz={handleShowUpdateQuiz}
+                    hanldeShowDeleteQuiz={hanldeShowDeleteQuiz}
                 />
                 <div>
                     <ModalViewQuiz
@@ -152,6 +162,16 @@ const ManageQuiz = () => {
                         setShow={setShowModalUpdateQuiz}
                         dataModal={dataModal}
                         resetUpdateDataModal={resetDataModal}
+                        fetchListQuiz={fetchListQuiz}
+                    />
+                    <ModalDelete
+                        show={showModalDeleteQuiz}
+                        setShow={setShowModalDeleteQuiz}
+                        dataModal={dataModal}
+                        resetDeleteDataModal={resetDataModal}
+                        fetchListQuiz={fetchListQuiz}
+                        dataDelete={dataDelete}
+                        setDataDelete={setDataDelete}
                     />
                 </div>
             </div>

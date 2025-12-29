@@ -1,0 +1,29 @@
+.col-md-16 {
+    .img-preview {
+        max-width: 150px;
+        max-height: 150px;
+    }
+
+    .label-upload {
+        display: flex;
+        align-items: center;
+        border: 1px solid red;
+        width: 168px;
+        height: 40px;
+        border-radius: 5px;
+        padding: 3px 10px;
+        background-color: #eeeeee;
+        gap: 5px;
+    }
+
+    .label-upload:hover {
+        background-color: #cccc;
+    }
+
+    .form-label {
+        padding: 10px 15px;
+        background-color: rgb(199, 183, 183);
+        border-radius: 5px;
+    }
+
+}

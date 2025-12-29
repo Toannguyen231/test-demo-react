@@ -42,23 +42,23 @@ const putUpdateUser = (id, username, role, image) => {
     data.append('role', role);
     data.append('userImage', image);
 
-    return instance.put('http://localhost:8081/api/v1/participant', data);
+    return instance.put('/api/v1/participant', data);
 }
 
 const deleteUser = (userID) => {
-    return instance.delete(`http://localhost:8081/api/v1/participant`, { data: { id: userID } });
+    return instance.delete(`/api/v1/participant`, { data: { id: userID } });
 }
 
 const getPageUserWithPage = (page, limit) => {
-    return instance.get(`http://localhost:8081/api/v1/participant?page=${page}&limit=${limit}`);
+    return instance.get(`/api/v1/participant?page=${page}&limit=${limit}`);
 }
 
 const getQuzizeByPage = () => {
-    return instance.get('http://localhost:8081/api/v1/quiz-by-participant');
+    return instance.get('/api/v1/quiz-by-participant');
 }
 
 const getQuestionsByQuizId = (id) => {
-    return instance.get(`http://localhost:8081/api/v1/questions-by-quiz?quizId=${id}`);
+    return instance.get(`/api/v1/questions-by-quiz?quizId=${id}`);
 }
 
 const postSubmitQuiz = (data) => {
@@ -79,10 +79,26 @@ const postCreateQuiz = (description, name, difficulty, image) => {
     return instance.post('/api/v1/quiz', formData);
 }
 
+const putUpdateQuiz = (id, description, name, difficulty, image) => {
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('description', description);
+    formData.append('name', name);
+    formData.append('difficulty', difficulty);
+    formData.append('quizImage', image);
+
+    return instance.put('/api/v1/quiz', formData);
+}
+
+const deleteQuiz = (quizID) => {
+    return instance.delete(`/api/v1/quiz/${quizID}`);
+}
+
+
 export {
     postCreateUser, getAllUsers,
     putUpdateUser, deleteUser, getPageUserWithPage,
     postCreateSignUp, postLogin, getQuzizeByPage,
     getQuestionsByQuizId, postSubmitQuiz,
-    getAllQuizForAdmin, postCreateQuiz
+    getAllQuizForAdmin, postCreateQuiz, putUpdateQuiz, deleteQuiz
 };
