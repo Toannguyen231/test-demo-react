@@ -76,7 +76,10 @@ const SideBar = ({ image = true, collapsed, rtl, toggled, handleToggleSidebar })
                                 Quản lý bài Quiz
                                 <Link to="/admin/manageQuiz"></Link>
                             </MenuItem>
-                            <MenuItem>Quản lý câu hỏi</MenuItem>
+                            <MenuItem>
+                                Quản lý câu hỏi
+                                <Link to="/admin/manageQuestions"></Link>
+                            </MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>

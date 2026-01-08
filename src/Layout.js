@@ -15,6 +15,9 @@ import 'nprogress/nprogress.css'
 import ListQuiz from './component/User/ListQuiz';
 import Detail from './component/User/DetailQuiz';
 import ManageQuiz from './component/Admin/Content/Quiz/ManageQuiz.jsx';
+import Questions from './component/Admin/Content/Question/Questions.jsx';
+
+
 const NotFound = () => {
     return (
         <div className="container mt-3 alert alert-danger">
@@ -35,6 +38,7 @@ const Layout = () => {
                 <Route index element={<DashBoard />} />
                 <Route path='manageruser' element={<ManagerUser />} />
                 <Route path='manageQuiz' element={< ManageQuiz />} />
+                <Route path='manageQuestions' element={< Questions />} />
             </Route>
             <Route path='login' element={<Login />} />
             <Route path='signup' element={<SignUp />} />
