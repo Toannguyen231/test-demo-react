@@ -1,10 +1,10 @@
 import Select from 'react-select';
 import { useState } from 'react';
-import { FaRegPlusSquare } from "react-icons/fa";
-import { LuSquareMinus } from "react-icons/lu";
+import { AiFillPlusSquare } from "react-icons/ai";
+import { AiFillMinusSquare } from "react-icons/ai";
 import { CiCircleMinus } from "react-icons/ci";
 import { CiCirclePlus } from "react-icons/ci";
-
+import { LuImagePlus } from "react-icons/lu";
 import './Questions.scss';
 const Questions = () => {
     const options = [
@@ -19,6 +19,7 @@ const Questions = () => {
             <div className="title">
                 Manage Questions
             </div>
+            <hr />
             <div className="add-new-question">
                 <div className='col-6 from-group'>
                     <label>Select Quiz: </label>
@@ -36,16 +37,18 @@ const Questions = () => {
                             <label for="floatingInput">Descriptions</label>
                         </div>
                         <div className="group-upload">
-                            <label className="label-up">Upload File</label>
+                            <label className="label-up">
+                                <LuImagePlus />
+                            </label>
                             <input type={"file"} hidden />
                             <span>0 file is uploaded</span>
                         </div>
                         <div className="btn-add">
                             <span>
-                                <FaRegPlusSquare className="icon-add" />
+                                <AiFillPlusSquare className="icon-add" />
                             </span>
                             <span>
-                                <LuSquareMinus className="icon-remove" />
+                                <AiFillMinusSquare className="icon-remove" />
                             </span>
                         </div>
 
@@ -54,6 +57,36 @@ const Questions = () => {
                     </div> */}
                     </div>
 
+                    <div className="answer-content">
+                        <input className="form-check-input iscorrect" type="checkbox" />
+                        <div className="form-floating answer-name">
+                            <input class="form-control" id="floatingInput" placeholder="name@example.com" />
+                            <label for="floatingInput">Answer 1</label>
+                        </div>
+                        <div className="btn-group">
+                            <span>
+                                <CiCirclePlus className="icon-add" />
+                            </span>
+                            <span>
+                                <CiCircleMinus className="icon-remove" />
+                            </span>
+                        </div>
+                    </div>
+                    <div className="answer-content">
+                        <input className="form-check-input iscorrect" type="checkbox" />
+                        <div className="form-floating answer-name">
+                            <input class="form-control" id="floatingInput" placeholder="name@example.com" />
+                            <label for="floatingInput">Answer 1</label>
+                        </div>
+                        <div className="btn-group">
+                            <span>
+                                <CiCirclePlus className="icon-add" />
+                            </span>
+                            <span>
+                                <CiCircleMinus className="icon-remove" />
+                            </span>
+                        </div>
+                    </div>
                     <div className="answer-content">
                         <input className="form-check-input iscorrect" type="checkbox" />
                         <div className="form-floating answer-name">
