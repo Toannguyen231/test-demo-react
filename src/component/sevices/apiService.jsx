@@ -94,11 +94,19 @@ const deleteQuiz = (quizID) => {
     return instance.delete(`/api/v1/quiz/${quizID}`);
 }
 
+const postQuestions = (quiz_id, description, questionImage) => {
+    const data = new FormData();
+    data.append('quiz_id', quiz_id);
+    data.append('description', description);
+    data.append('questionImage', questionImage);
+
+    return instance.post('/api/v1/question', data);
+}
 
 export {
     postCreateUser, getAllUsers,
     putUpdateUser, deleteUser, getPageUserWithPage,
     postCreateSignUp, postLogin, getQuzizeByPage,
     getQuestionsByQuizId, postSubmitQuiz,
-    getAllQuizForAdmin, postCreateQuiz, putUpdateQuiz, deleteQuiz
+    getAllQuizForAdmin, postCreateQuiz, putUpdateQuiz, deleteQuiz, postQuestions
 };

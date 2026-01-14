@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store, persistor } from './component/actions/store.jsx';
 import { PersistGate } from 'redux-persist/integration/react'
-import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'nprogress/nprogress.css'
 import Layout from './Layout.js';
