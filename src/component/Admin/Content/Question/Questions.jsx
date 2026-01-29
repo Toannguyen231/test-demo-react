@@ -35,6 +35,8 @@ const Questions = () => {
         },
     ]);
 
+    const [fileUploaded, setFileUploaded] = useState({});
+
     const handleAddRemoveQuestion = (type, id) => {
         if (type == "ADD") {
             const newQuestions = {
@@ -52,10 +54,10 @@ const Questions = () => {
             };
             setQuestions([...questions, newQuestions]);
         }
-        else if (type == "REMOVE") {
-            const newQuestions = _.cloneDeep(questions)
-            newQuestions.filter(question => question.id !== id);
-            setQuestions(newQuestions);
+        else if (type === "REMOVE") {
+            const newQuestions = _.cloneDeep(questions);
+            const filteredQuestions = newQuestions.filter(question => question.id !== id);
+            setQuestions(filteredQuestions);
         }
 
         console.log("==> check hanle add questions", type, id);
@@ -81,13 +83,59 @@ const Questions = () => {
         else if (type == "REMOVE") {
             let indexQuestions = newQuestions.findIndex(item => item.id === qid);
             newQuestions[indexQuestions].answer = newQuestions[indexQuestions].answer.filter(item => item.id !== aid);
-
             setQuestions(newQuestions);
         }
     };
 
+    const handleOnChange = (type, questionID, value) => {
+        if (type === "QUESTION") {
+            let questionClone = _.cloneDeep(questions);
+            let index = questionClone.findIndex(item => item.id === questionID);
+            if (index > -1) {
+                questionClone[index].description = value;
+            }
 
-    console.log('Questions length:', questions.length);
+            setQuestions(questionClone);
+        }
+    }
+
+    const handleOnChangeFileQuestion = (questionID, event) => {
+        let questionClone = _.cloneDeep(questions);
+        let index = questionClone.findIndex(item => item.id === questionID);
+        if (index > -1 && event.target && event.target.files && event.target.files[0]) {
+            questionClone[index].imageFile = event.target.files[0];
+            questionClone[index].imageName = event.target.files[0].name;
+            setQuestions(questionClone);
+            setFileUploaded({
+                ...fileUploaded,
+                [questionID]: event.target.files[0].name
+            });
+        }
+    }
+
+
+    const handleAnswerQuestions = (type, questionID, answerID, value) => {
+        let questionClone = _.cloneDeep(questions);
+        let index = questionClone.findIndex(item => item.id === questionID);
+        if (index > -1) {
+            questionClone[index].answer = questionClone[index].answer.map(answer => {
+                if (answer.id === answerID) {
+                    if (type === "CHECKBOX") {
+                        answer.iscorrect = value;
+                    }
+                    if (type === "INPUT") {
+                        answer.description = value;
+                    }
+                }
+                return answer;
+            });
+            setQuestions(questionClone);
+        }
+    }
+
+    const handleSubmitQuestionsForQuiz = () => {
+        console.log("question: ", questions);
+    }
     return (
         <div className="questions-container">
             <div className="title">
@@ -107,7 +155,6 @@ const Questions = () => {
                 <div>
                     {questions && questions.length > 0 &&
                         questions.map((question, index) => {
-                            console.log('Rendering question:', question.description);
                             return (
                                 <div key={question.id} className='q-main mt-5'>
                                     <div className='questions-content'>
@@ -117,20 +164,19 @@ const Questions = () => {
                                                 id={`question-${question.id}`}
                                                 placeholder="Question description"
                                                 value={question.description}
-                                                onChange={(e) => {
-                                                    const newQuestions = [...questions];
-                                                    newQuestions[index].description = e.target.value;
-                                                    setQuestions(newQuestions);
-                                                }}
+                                                onChange={(e) => handleOnChange("QUESTION", question.id, e.target.value)}
                                             />
                                             <label htmlFor={`question-${question.id}`}>Question {index + 1}'s description</label>
                                         </div>
                                         <div className="group-upload">
-                                            <label className="label-up">
+                                            <label className="label-up" htmlFor={`file-${question.id}`}>
                                                 <LuImagePlus />
                                             </label>
-                                            <input type={"file"} hidden />
-                                            <span>0 file is uploaded</span>
+                                            <input type={`file`}
+                                                id={`file-${question.id}`}
+                                                onChange={(event) => handleOnChangeFileQuestion(question.id, event)}
+                                                hidden />
+                                            <span>{fileUploaded[question.id] ? `${fileUploaded[question.id]}` : '0 file is uploaded'}</span>
                                         </div>
                                         <div className="btn-add">
                                             <span>
@@ -147,16 +193,13 @@ const Questions = () => {
                                         question.answer && question.answer.length > 0
                                         && question.answer.map((ans, ansIndex) => {
                                             return (
+
                                                 <div key={ans.id} className="answer-content">
                                                     <input
                                                         className="form-check-input iscorrect"
                                                         type="checkbox"
                                                         checked={ans.iscorrect}
-                                                        onChange={(e) => {
-                                                            const newQuestions = [...questions];
-                                                            newQuestions[index].answer[ansIndex].iscorrect = e.target.checked;
-                                                            setQuestions(newQuestions);
-                                                        }}
+                                                        onChange={(e) => handleAnswerQuestions("CHECKBOX", question.id, ans.id, e.target.checked)}
                                                     />
                                                     <div className="form-floating answer-name">
                                                         <input
@@ -164,11 +207,7 @@ const Questions = () => {
                                                             id={`answer-${ans.id}`}
                                                             placeholder="Answer description"
                                                             value={ans.description}
-                                                            onChange={(e) => {
-                                                                const newQuestions = [...questions];
-                                                                newQuestions[index].answer[ansIndex].description = e.target.value;
-                                                                setQuestions(newQuestions);
-                                                            }}
+                                                            onChange={(e) => handleAnswerQuestions("INPUT", question.id, ans.id, e.target.value)}
                                                         />
                                                         <label htmlFor={`answer-${ans.id}`}>Answer {ansIndex + 1}</label>
                                                     </div>
@@ -183,6 +222,18 @@ const Questions = () => {
                                                 </div>
                                             );
                                         })
+                                    }
+
+                                    {
+                                        question.answer && question.answer.length > 0 &&
+                                        <div>
+                                            <button
+                                                className="btn btn-warning save-question"
+                                                onClick={() => handleSubmitQuestionsForQuiz()}
+                                            >
+                                                Save questions
+                                            </button>
+                                        </div>
                                     }
                                 </div>
                             );
