@@ -9,6 +9,8 @@ import { PersistGate } from 'redux-persist/integration/react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'nprogress/nprogress.css'
 import Layout from './Layout.js';
+import "react-awesome-lightbox/build/style.css";
+
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>

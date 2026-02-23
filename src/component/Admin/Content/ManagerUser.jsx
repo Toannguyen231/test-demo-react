@@ -1,4 +1,3 @@
-
 import ModalCreateUser from "./ModalCreateUser.jsx";
 import '../Content/ManageUser.scss'
 import { FcPlus } from "react-icons/fc"

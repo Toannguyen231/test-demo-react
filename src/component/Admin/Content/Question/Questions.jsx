@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
 import './Questions.scss';
 import { set } from 'nprogress';
-
+import Lightbox from "react-awesome-lightbox";
 const Questions = () => {
     const options = [
         { value: 'chocolate', label: 'Chocolate' },
@@ -35,8 +35,14 @@ const Questions = () => {
         },
     ]);
 
+    const [isPreviewImage, setIsPreviewImage] = useState(false);
+
     const [fileUploaded, setFileUploaded] = useState({});
 
+    const [dataImageQuestion, setDataImageQuestion] = useState({
+        title: '',
+        URL: '',
+    });
     const handleAddRemoveQuestion = (type, id) => {
         if (type == "ADD") {
             const newQuestions = {
@@ -108,7 +114,7 @@ const Questions = () => {
             setQuestions(questionClone);
             setFileUploaded({
                 ...fileUploaded,
-                [questionID]: event.target.files[0].name
+                [questionClone[index].imageName]: event.target.files[0].name
             });
         }
     }
@@ -135,6 +141,18 @@ const Questions = () => {
 
     const handleSubmitQuestionsForQuiz = () => {
         console.log("question: ", questions);
+    }
+
+    const handlePreviewImage = (questionID) => {
+        let questionClone = _.cloneDeep(questions);
+        let index = questionClone.findIndex(item => item.id === questionID);
+        if (index > -1) {
+            setDataImageQuestion({
+                URL: URL.createObjectURL(questionClone[index].imageFile),
+                title: questionClone[index].imageName,
+            })
+            setIsPreviewImage(true);
+        }
     }
     return (
         <div className="questions-container">
@@ -176,7 +194,7 @@ const Questions = () => {
                                                 id={`file-${question.id}`}
                                                 onChange={(event) => handleOnChangeFileQuestion(question.id, event)}
                                                 hidden />
-                                            <span>{fileUploaded[question.id] ? `${fileUploaded[question.id]}` : '0 file is uploaded'}</span>
+                                            <span style={{ cursor: 'pointer' }}>{fileUploaded[question.imageName] ? <span onClick={() => handlePreviewImage(question.id)}>{fileUploaded[question.imageName]}</span> : '0 file is uploaded'}</span>
                                         </div>
                                         <div className="btn-add">
                                             <span>
@@ -223,7 +241,6 @@ const Questions = () => {
                                             );
                                         })
                                     }
-
                                     {
                                         question.answer && question.answer.length > 0 &&
                                         <div>
@@ -235,13 +252,18 @@ const Questions = () => {
                                             </button>
                                         </div>
                                     }
+                                    {isPreviewImage == true &&
+                                        <Lightbox
+                                            onClose={() => setIsPreviewImage(false)}
+                                            image={dataImageQuestion.URL} title={dataImageQuestion.title}></Lightbox>
+                                    }
                                 </div>
                             );
                         })
                     }
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
