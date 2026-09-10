@@ -10,6 +10,7 @@ import _ from 'lodash';
 import './Questions.scss';
 import { set } from 'nprogress';
 import Lightbox from "react-awesome-lightbox";
+import getAllQuizForAdmin from '../Quiz/ManageQuiz';
 const Questions = () => {
     const options = [
         { value: 'chocolate', label: 'Chocolate' },
@@ -43,6 +44,22 @@ const Questions = () => {
         title: '',
         URL: '',
     });
+
+    const [listQuiz, setListQuiz] = useState([]);
+
+    // useEffect(() => {
+    //     fetchListQuiz();
+    // }, []);
+
+    const fetchListQuiz = async () => {
+        let res = await getAllQuizForAdmin();
+        if (res && res.data.EC === 0) {
+            setListQuiz(res.data.DT);
+        }
+    }
+
+    console.log("check list quiz: ", listQuiz);
+
     const handleAddRemoveQuestion = (type, id) => {
         if (type == "ADD") {
             const newQuestions = {
